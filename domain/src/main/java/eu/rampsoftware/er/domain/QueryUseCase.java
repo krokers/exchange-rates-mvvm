@@ -6,20 +6,24 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import eu.rampsoftware.er.domain.executor.PostExecutionThread;
 import eu.rampsoftware.er.domain.executor.ThreadExecutor;
 import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public abstract class UseCase<R, T> {
-    private final CompositeDisposable mDisposables;
+/**
+ * Abstraction for single unit of work from business logic standpoint. Purpose of this use case
+ * is to query for data.
+ *
+ * @param <R> Data returned to the observer.
+ * @param <T> Parameters needed to perform the unit of work.
+ */
+public abstract class QueryUseCase<R, T> extends DisposableUseCase {
+
     private final ThreadExecutor threadExecutor;
     private final PostExecutionThread postExecutionThread;
 
-    UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    QueryUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         this.threadExecutor = threadExecutor;
         this.postExecutionThread = postExecutionThread;
-        this.mDisposables = new CompositeDisposable();
     }
 
     public void run(DisposableObserver<R> observer, T params) {
@@ -30,15 +34,7 @@ public abstract class UseCase<R, T> {
         addDisposable(observable.subscribeWith(observer));
     }
 
-    public void dispose() {
-        if (!mDisposables.isDisposed()) {
-            mDisposables.dispose();
-        }
-    }
-
     protected abstract Observable<R> buildUseCaseObservable(final T params);
 
-    private void addDisposable(Disposable disposable) {
-        mDisposables.add(disposable);
-    }
+
 }

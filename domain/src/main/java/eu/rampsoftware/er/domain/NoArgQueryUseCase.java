@@ -6,20 +6,22 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import eu.rampsoftware.er.domain.executor.PostExecutionThread;
 import eu.rampsoftware.er.domain.executor.ThreadExecutor;
 import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public abstract class NoArgUseCase<R> {
-    private final CompositeDisposable mDisposables;
+/**
+ * Abstraction for single unit of work from business logic standpoint. Purpose of this use case
+ * is to query for data.
+ *
+ * @param <R> Data returned to the observer.
+ */
+public abstract class NoArgQueryUseCase<R> extends DisposableUseCase {
     private final ThreadExecutor threadExecutor;
     private final PostExecutionThread postExecutionThread;
 
-    NoArgUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    NoArgQueryUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         this.threadExecutor = threadExecutor;
         this.postExecutionThread = postExecutionThread;
-        this.mDisposables = new CompositeDisposable();
     }
 
     public void run(DisposableObserver<R> observer) {
@@ -30,15 +32,6 @@ public abstract class NoArgUseCase<R> {
         addDisposable(observable.subscribeWith(observer));
     }
 
-    public void dispose() {
-        if (!mDisposables.isDisposed()) {
-            mDisposables.dispose();
-        }
-    }
-
     protected abstract Observable<R> buildUseCaseObservable();
 
-    private void addDisposable(Disposable disposable) {
-        mDisposables.add(disposable);
-    }
 }

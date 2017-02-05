@@ -5,6 +5,10 @@ dependencies {
 
     compile domainDependencies.rxJava
     compile domainDependencies.arrow
+
+    testCompile domainTestDependencies.junit
+    testCompile domainTestDependencies.mockito
+    testCompile domainTestDependencies.assertj
 }
 
 sourceCompatibility = "1.7"
