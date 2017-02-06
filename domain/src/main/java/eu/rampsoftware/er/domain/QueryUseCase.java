@@ -6,6 +6,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import eu.rampsoftware.er.domain.executor.PostExecutionThread;
 import eu.rampsoftware.er.domain.executor.ThreadExecutor;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -18,19 +19,19 @@ import io.reactivex.schedulers.Schedulers;
  */
 public abstract class QueryUseCase<R, T> extends DisposableUseCase {
 
-    private final ThreadExecutor threadExecutor;
-    private final PostExecutionThread postExecutionThread;
+    private final Scheduler mWorkScheduler;
+    private final Scheduler mObserveScheduler;
 
-    QueryUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
-        this.threadExecutor = threadExecutor;
-        this.postExecutionThread = postExecutionThread;
+    QueryUseCase(Scheduler workScheduler, Scheduler observeScheduler) {
+        this.mWorkScheduler = workScheduler;
+        this.mObserveScheduler = observeScheduler;
     }
 
     public void run(DisposableObserver<R> observer, T params) {
         Preconditions.checkNotNull(observer);
         final Observable<R> observable = this.buildUseCaseObservable(params)
-                .subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(postExecutionThread.getScheduler());
+                .subscribeOn(mWorkScheduler)
+                .observeOn(mObserveScheduler);
         addDisposable(observable.subscribeWith(observer));
     }
 

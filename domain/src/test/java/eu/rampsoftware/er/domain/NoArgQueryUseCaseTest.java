@@ -5,17 +5,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import eu.rampsoftware.er.domain.executor.PostExecutionThread;
-import eu.rampsoftware.er.domain.executor.ThreadExecutor;
 import io.reactivex.Observable;
-import io.reactivex.observers.DisposableObserver;
+import io.reactivex.Scheduler;
 import io.reactivex.schedulers.TestScheduler;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
 
 /**
  * Created by Ramps on 2017-02-05.
@@ -26,19 +22,19 @@ public class NoArgQueryUseCaseTest {
 
     @Rule
     public ExpectedException mExpectedException = ExpectedException.none();
-    @Mock
-    private ThreadExecutor mThreadExecutorMock;
-    @Mock
-    private PostExecutionThread mPostExecutionThreadMock;
+
+    private Scheduler mWorkScheduler;
+    private Scheduler mObserveScheduler;
     private NoArgQueryUseCaseTestClass mUseCase;
     private TestDisposableObserver<Object> mTestObserver;
 
 
     @Before
     public void setUp() {
-        this.mUseCase = new NoArgQueryUseCaseTestClass(mThreadExecutorMock, mPostExecutionThreadMock);
+        mWorkScheduler = new TestScheduler();
+        mObserveScheduler = new TestScheduler();
+        this.mUseCase = new NoArgQueryUseCaseTestClass(mWorkScheduler, mObserveScheduler);
         this.mTestObserver = new TestDisposableObserver<>();
-        given(mPostExecutionThreadMock.getScheduler()).willReturn(new TestScheduler());
     }
 
     @Test
@@ -57,8 +53,8 @@ public class NoArgQueryUseCaseTest {
     }
 
     private static class NoArgQueryUseCaseTestClass extends NoArgQueryUseCase<Object> {
-        NoArgQueryUseCaseTestClass(final ThreadExecutor threadExecutor, final PostExecutionThread postExecutionThread) {
-            super(threadExecutor, postExecutionThread);
+        NoArgQueryUseCaseTestClass(final Scheduler workScheduler, final Scheduler observeScheduler) {
+            super(workScheduler, observeScheduler);
         }
 
         @Override

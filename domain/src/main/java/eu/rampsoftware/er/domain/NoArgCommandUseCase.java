@@ -6,6 +6,7 @@ import com.fernandocejas.arrow.checks.Preconditions;
 import eu.rampsoftware.er.domain.executor.PostExecutionThread;
 import eu.rampsoftware.er.domain.executor.ThreadExecutor;
 import io.reactivex.Completable;
+import io.reactivex.Scheduler;
 import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.schedulers.Schedulers;
 
@@ -13,19 +14,19 @@ import io.reactivex.schedulers.Schedulers;
  * Abstraction for single unit of work which purpose is to change the state.
  */
 public abstract class NoArgCommandUseCase extends DisposableUseCase {
-    private final ThreadExecutor threadExecutor;
-    private final PostExecutionThread postExecutionThread;
+    private final Scheduler mWorkScheduler;
+    private final Scheduler mObserveScheduler;
 
-    NoArgCommandUseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
-        this.threadExecutor = threadExecutor;
-        this.postExecutionThread = postExecutionThread;
+    NoArgCommandUseCase(Scheduler workScheduler, Scheduler observeScheduler) {
+        this.mWorkScheduler = workScheduler;
+        this.mObserveScheduler = observeScheduler;
     }
 
     public void run(DisposableCompletableObserver observer) {
         Preconditions.checkNotNull(observer);
         final Completable observable = this.buildUseCaseObservable()
-                .subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(postExecutionThread.getScheduler());
+                .subscribeOn(mWorkScheduler)
+                .observeOn(mObserveScheduler);
         addDisposable(observable.subscribeWith(observer));
     }
 

@@ -13,6 +13,7 @@ import eu.rampsoftware.er.domain.executor.ThreadExecutor;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.schedulers.TestScheduler;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,18 +28,17 @@ public class NoArgCommandUseCaseTest {
     @Rule
     public ExpectedException mExpectedException = ExpectedException.none();
     @Mock
-    private ThreadExecutor mThreadExecutorMock;
+    private Scheduler mWorkScheduler;
     @Mock
-    private PostExecutionThread mPostExecutionThreadMock;
+    private Scheduler mObserveScheduler;
     private NoArgCommandUseCaseTestClass mUseCase;
     private TestDisposableCompletableObserver mTestObserver;
 
 
     @Before
     public void setUp() {
-        this.mUseCase = new NoArgCommandUseCaseTestClass(mThreadExecutorMock, mPostExecutionThreadMock);
+        this.mUseCase = new NoArgCommandUseCaseTestClass(mWorkScheduler, mObserveScheduler);
         this.mTestObserver = new TestDisposableCompletableObserver();
-        given(mPostExecutionThreadMock.getScheduler()).willReturn(new TestScheduler());
     }
 
     @Test
@@ -57,8 +57,8 @@ public class NoArgCommandUseCaseTest {
     }
 
     private static class NoArgCommandUseCaseTestClass extends NoArgCommandUseCase {
-        NoArgCommandUseCaseTestClass(final ThreadExecutor threadExecutor, final PostExecutionThread postExecutionThread) {
-            super(threadExecutor, postExecutionThread);
+        NoArgCommandUseCaseTestClass(final Scheduler workScheduler, final Scheduler observeScheduler) {
+            super(workScheduler, observeScheduler);
         }
 
         @Override
