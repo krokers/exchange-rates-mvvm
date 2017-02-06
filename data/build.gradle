@@ -28,6 +28,7 @@ dependencies {
     compile dataDependencies.retrofit2rxJava2
     compile dataDependencies.retrofit2
     compile dataDependencies.retrofit2GsonConverter
+    compile project(':databoundary')
 
     testCompile dataTestDependencies.junit
 }

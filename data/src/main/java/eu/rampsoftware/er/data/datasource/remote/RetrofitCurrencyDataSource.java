@@ -2,8 +2,8 @@ package eu.rampsoftware.er.data.datasource.remote;
 
 import java.util.List;
 
+import eu.rampsoftware.er.data.CurrencyData;
 import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
-import eu.rampsoftware.er.data.model.CurrencyData;
 import io.reactivex.Observable;
 
 /**
@@ -11,7 +11,6 @@ import io.reactivex.Observable;
  */
 
 public class RetrofitCurrencyDataSource implements CurrencyDataSource {
-
 
 
     @Override

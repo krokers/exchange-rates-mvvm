@@ -1,4 +1,4 @@
-package eu.rampsoftware.er.data.model;
+package eu.rampsoftware.er.data;
 
 /**
  * Created by Ramps on 2017-02-05.

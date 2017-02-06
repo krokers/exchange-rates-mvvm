@@ -1,0 +1,9 @@
+apply plugin: 'java'
+
+dependencies {
+    compile dataDependencies.rxJava
+    compile dataDependencies.arrow
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

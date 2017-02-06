@@ -57,6 +57,13 @@ ext {
             assertj:            "org.assertj:assertj-core:${assertJVersion}"
     ]
 
+    dataBoundaryDependencies = [
+            javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
+            rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            arrow:              "com.fernandocejas:arrow:${arrowVersion}",
+    ]
+
     dataDependencies = [
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",

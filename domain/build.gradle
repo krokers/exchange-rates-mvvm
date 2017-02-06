@@ -5,10 +5,12 @@ dependencies {
 
     compile domainDependencies.rxJava
     compile domainDependencies.arrow
+    compile project(':databoundary')
 
     testCompile domainTestDependencies.junit
     testCompile domainTestDependencies.mockito
     testCompile domainTestDependencies.assertj
+    compile project(path: ':data')
 }
 
 sourceCompatibility = "1.7"

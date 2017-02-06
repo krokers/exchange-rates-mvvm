@@ -22,7 +22,7 @@ public abstract class QueryUseCase<R, T> extends DisposableUseCase {
     private final Scheduler mWorkScheduler;
     private final Scheduler mObserveScheduler;
 
-    QueryUseCase(Scheduler workScheduler, Scheduler observeScheduler) {
+    protected QueryUseCase(Scheduler workScheduler, Scheduler observeScheduler) {
         this.mWorkScheduler = workScheduler;
         this.mObserveScheduler = observeScheduler;
     }
