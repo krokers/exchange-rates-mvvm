@@ -14,6 +14,9 @@ ext {
     rxJavaVersion = '2.0.5'
     rxAndroidVersion = '2.0.1'
     arrowVersion = '1.0.0'
+    retrofit2rxJava2Version = '1.0.0'
+    retrofit2Version = '2.1.0'
+    retrofit2GsonConverterVersion = '2.1.0'
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -57,7 +60,12 @@ ext {
     dataDependencies = [
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
-            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}"
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
+            rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            arrow:              "com.fernandocejas:arrow:${arrowVersion}",
+            retrofit2rxJava2:   "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${retrofit2rxJava2Version}",
+            retrofit2:          "com.squareup.retrofit2:retrofit:${retrofit2Version}",
+            retrofit2GsonConverter: "com.squareup.retrofit2:converter-gson:${retrofit2GsonConverterVersion}"
     ]
 
     dataTestDependencies = [

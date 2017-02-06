@@ -22,5 +22,12 @@ android {
 }
 
 dependencies {
-    testCompile presentationTestDependencies.junit
+
+    compile dataDependencies.rxJava
+    compile dataDependencies.arrow
+    compile dataDependencies.retrofit2rxJava2
+    compile dataDependencies.retrofit2
+    compile dataDependencies.retrofit2GsonConverter
+
+    testCompile dataTestDependencies.junit
 }
