@@ -39,4 +39,6 @@ dependencies {
 
     androidTestCompile presentationTestDependencies.espresso
     androidTestCompile presentationTestDependencies.testingSupportLib
+    compile project(path: ':domain')
+    compile project(path: ':data')
 }

@@ -14,12 +14,11 @@ import io.reactivex.Scheduler;
  * Created by Ramps on 2017-02-06.
  */
 
-public class GetCurrencies extends QueryUseCase<List<CurrencyHome>, GetCurrencies.CurrenciesParam> {
+public class GetCurrenciesUseCase extends QueryUseCase<List<CurrencyHome>, GetCurrenciesUseCase.CurrenciesParam> {
 
     private final CurrencyRepository mRepository;
 
-
-    GetCurrencies(final Scheduler workScheduler, final Scheduler observeScheduler, CurrencyRepository repository) {
+    public GetCurrenciesUseCase(final Scheduler workScheduler, final Scheduler observeScheduler, CurrencyRepository repository) {
         super(workScheduler, observeScheduler);
         mRepository = repository;
     }
