@@ -30,14 +30,13 @@ dependencies {
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
 
     compile presentationDependencies.appCompat
+    compile presentationDependencies.design
     compile presentationDependencies.rxJava
     compile presentationDependencies.rxAndroid
-
 
     testCompile presentationTestDependencies.robolectric
     testCompile presentationTestDependencies.junit
 
     androidTestCompile presentationTestDependencies.espresso
     androidTestCompile presentationTestDependencies.testingSupportLib
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha4'
 }

@@ -11,6 +11,7 @@ ext {
     javaxInjectVersion = '1'
     androidAnnotationsVersion = '21.0.3'
     appCompatVersion = '25.1.1'
+    designVersion = '25.1.1'
     rxJavaVersion = '2.0.5'
     rxAndroidVersion = '2.0.1'
     arrowVersion = '1.0.0'
@@ -33,6 +34,7 @@ ext {
             recyclerView:       "com.android.support:recyclerview-v7:${recyclerViewVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             appCompat:          "com.android.support:appcompat-v7:${appCompatVersion}",
+            design:             "com.android.support:design:${designVersion}",
             rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
     ]
