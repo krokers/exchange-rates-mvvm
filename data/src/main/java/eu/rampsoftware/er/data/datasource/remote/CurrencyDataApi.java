@@ -12,8 +12,6 @@ import retrofit2.http.Query;
 
 public interface CurrencyDataApi {
 
-    String BASE_URL = "https://openexchangerates.org/api/";
-
-    @GET(BASE_URL + "/types")
-    Observable<Response<CurrencyDto>> getTypes(@Query("base") String baseCurrency);
+    @GET("/types")
+    Observable<Response<CurrencyDto>> getCurrencies(@Query("base") String baseCurrency);
 }

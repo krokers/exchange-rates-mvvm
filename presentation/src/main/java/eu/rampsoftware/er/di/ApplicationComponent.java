@@ -13,7 +13,7 @@ import dagger.Component;
  * in <code>dependencies</code> parameter of {@link Component} annotation. In such case, this root component would need
  * to expose dependencies to the downstream components (all dependencies provided by this component that are used by downstream components)
  */
-@Component(modules = ApplicationModule.class)
+@Component(modules = {ApplicationModule.class, NetModule.class})
 @Singleton
 public interface ApplicationComponent {
     /**

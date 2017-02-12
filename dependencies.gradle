@@ -20,6 +20,7 @@ ext {
     retrofit2GsonConverterVersion = '2.1.0'
     dagger2Version = '2.9'
     dagger2CompilerVersion = '2.9'
+    loggingInterceptorVersion = '3.4.1'
 
 
     //Testing
@@ -81,7 +82,8 @@ ext {
             arrow:              "com.fernandocejas:arrow:${arrowVersion}",
             retrofit2rxJava2:   "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${retrofit2rxJava2Version}",
             retrofit2:          "com.squareup.retrofit2:retrofit:${retrofit2Version}",
-            retrofit2GsonConverter: "com.squareup.retrofit2:converter-gson:${retrofit2GsonConverterVersion}"
+            retrofit2GsonConverter: "com.squareup.retrofit2:converter-gson:${retrofit2GsonConverterVersion}",
+            loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:${loggingInterceptorVersion}",
     ]
 
     dataTestDependencies = [

@@ -21,4 +21,9 @@ public class ResourcesApplicationProperties implements ApplicationProperties {
     public String baseUrl(){
         return mContext.getResources().getString(R.string.base_url);
     }
+
+    @Override
+    public boolean logsEnabled() {
+        return mContext.getResources().getBoolean(R.bool.logs_enabled);
+    }
 }

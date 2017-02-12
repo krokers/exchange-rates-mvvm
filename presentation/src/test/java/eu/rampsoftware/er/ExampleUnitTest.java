@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import eu.rampsoftware.er.di.DaggerTestApplicationComponent;
 import eu.rampsoftware.er.di.TestApplicationComponent;
@@ -26,7 +27,7 @@ public class ExampleUnitTest {
     @Before
     public void setUp() {
         initMocks(this);
-        TestApplicationModule testApplicationModule = new TestApplicationModule();
+        TestApplicationModule testApplicationModule = new TestApplicationModule(RuntimeEnvironment.application);
         component = DaggerTestApplicationComponent.builder().testApplicationModule(testApplicationModule).build();
     }
 

@@ -1,5 +1,7 @@
 package eu.rampsoftware.er.di;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 /**
@@ -9,6 +11,7 @@ import dagger.Component;
  *
  */
 @Component(modules = TestApplicationModule.class)
+@Singleton
 public interface TestApplicationComponent extends ApplicationComponent{
 
     TestCurrenciesActivitySubComponent newCurrenciesActivitySubComponent(TestCurrenciesActivityModule module);
