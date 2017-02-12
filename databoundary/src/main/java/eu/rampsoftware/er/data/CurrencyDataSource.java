@@ -1,6 +1,6 @@
 package eu.rampsoftware.er.data;
 
-import java.util.List;
+import java.util.Date;
 
 import io.reactivex.Observable;
 
@@ -9,5 +9,6 @@ import io.reactivex.Observable;
  */
 
 public interface CurrencyDataSource {
-    Observable<List<CurrencyData>> getCurrencies();
+
+    Observable<CurrencyData> getCurrencies(Date date);
 }

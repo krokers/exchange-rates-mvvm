@@ -10,7 +10,7 @@ import dagger.Component;
  * rather in integration tests.
  *
  */
-@Component(modules = TestApplicationModule.class)
+@Component(modules = {TestApplicationModule.class, TestNetModule.class})
 @Singleton
 public interface TestApplicationComponent extends ApplicationComponent{
 

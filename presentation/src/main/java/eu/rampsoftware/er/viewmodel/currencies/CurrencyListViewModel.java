@@ -4,8 +4,10 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableList;
 import android.os.Bundle;
 
+import java.util.Date;
 import java.util.List;
 
+import eu.rampsoftware.er.data.CurrencyData;
 import eu.rampsoftware.er.domain.pojo.CurrencyHome;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
 import eu.rampsoftware.er.viewmodel.BaseViewModel;
@@ -26,9 +28,9 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
 
     @Override
     public void onLoad() {
-        mCurrenciesUseCase.run(new DisposableObserver<List<CurrencyHome>>() {
+        mCurrenciesUseCase.run(new DisposableObserver<CurrencyData>() {
             @Override
-            public void onNext(final List<CurrencyHome> currencyHomes) {
+            public void onNext(final CurrencyData currencyData) {
 
             }
 
@@ -41,7 +43,7 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
             public void onComplete() {
 
             }
-        }, new GetCurrenciesUseCase.CurrenciesParam());
+        }, new GetCurrenciesUseCase.CurrenciesParam(new Date()));
     }
 
     @Override

@@ -26,4 +26,9 @@ public class ResourcesApplicationProperties implements ApplicationProperties {
     public boolean logsEnabled() {
         return mContext.getResources().getBoolean(R.bool.logs_enabled);
     }
+
+    @Override
+    public String getOerAppId() {
+        return mContext.getString(R.string.oer_app_id);
+    }
 }

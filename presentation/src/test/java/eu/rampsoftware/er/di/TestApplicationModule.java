@@ -7,6 +7,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import eu.rampsoftware.er.data.CurrencyDataSource;
+import eu.rampsoftware.er.data.CurrencyRepository;
+import eu.rampsoftware.er.data.datasource.remote.CurrencyDataApi;
 import eu.rampsoftware.er.properties.ApplicationProperties;
 import eu.rampsoftware.er.properties.ResourcesApplicationProperties;
 
@@ -14,7 +17,7 @@ import eu.rampsoftware.er.properties.ResourcesApplicationProperties;
  * Created by Ramps on 2017-02-12.
  */
 @Module
-public class TestApplicationModule {
+public class TestApplicationModule implements IApplicationModule{
 
     private final Context mContext;
 
@@ -24,7 +27,7 @@ public class TestApplicationModule {
 
     @Provides
     @Named("example")
-    String provideExampleString() {
+    public String provideExampleString() {
         return "Test Example";
     }
 
@@ -38,5 +41,25 @@ public class TestApplicationModule {
     @Singleton
     public ApplicationProperties provideApplicationProperties(final Context context){
         return new ResourcesApplicationProperties(context);
+    }
+
+    @Provides
+    @Override
+    @Named("remote")
+    public CurrencyDataSource provideRemoteCurrencyDataSource(final ApplicationProperties properties, final CurrencyDataApi currencyDataApi) {
+        return null;
+    }
+
+    @Provides
+    @Override
+    @Named("local")
+    public CurrencyDataSource provideLocalCurrencyDataSource() {
+        return null;
+    }
+
+    @Provides
+    @Override
+    public CurrencyRepository provideCurrencyRepository(@Named("local") final CurrencyDataSource localSource, @Named("remote") final CurrencyDataSource remoteSource) {
+        return null;
     }
 }

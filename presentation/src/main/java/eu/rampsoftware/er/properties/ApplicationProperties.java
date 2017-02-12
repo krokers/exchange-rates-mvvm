@@ -8,4 +8,6 @@ public interface ApplicationProperties {
     String baseUrl();
 
     boolean logsEnabled();
+
+    String getOerAppId();
 }

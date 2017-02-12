@@ -2,6 +2,7 @@ package eu.rampsoftware.er.di;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import javax.inject.Singleton;
 
@@ -18,8 +19,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Ramps on 2017-02-12.
  */
 @Module
-public class NetModule {
+public class NetModule implements INetModule{
 
+    @Override
     @Provides
     @Singleton
     public Gson provideGson() {
@@ -29,6 +31,7 @@ public class NetModule {
         return gson;
     }
 
+    @Override
     @Provides
     @Singleton
     public OkHttpClient provideOkHttpClient(ApplicationProperties propertiesManager) {
@@ -47,6 +50,7 @@ public class NetModule {
         return httpClient;
     }
 
+    @Override
     @Provides
     @Singleton
     public Retrofit provideRetrofit(Gson gson, ApplicationProperties propertiesManager, OkHttpClient client) {
@@ -54,11 +58,13 @@ public class NetModule {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(propertiesManager.baseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
         return retrofit;
     }
 
+    @Override
     @Provides
     @Singleton
     public CurrencyDataApi provideCurrencyDataApi(Retrofit retrofit){

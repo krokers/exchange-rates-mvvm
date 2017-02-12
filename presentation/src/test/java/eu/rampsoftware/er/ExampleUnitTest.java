@@ -6,8 +6,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
-import eu.rampsoftware.er.di.DaggerTestApplicationComponent;
-import eu.rampsoftware.er.di.TestApplicationComponent;
 import eu.rampsoftware.er.di.TestApplicationModule;
 
 import static org.junit.Assert.assertEquals;
@@ -22,13 +20,11 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class ExampleUnitTest {
 
 
-    private TestApplicationComponent component;
 
     @Before
     public void setUp() {
         initMocks(this);
         TestApplicationModule testApplicationModule = new TestApplicationModule(RuntimeEnvironment.application);
-        component = DaggerTestApplicationComponent.builder().testApplicationModule(testApplicationModule).build();
     }
 
 

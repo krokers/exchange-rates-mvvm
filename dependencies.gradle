@@ -79,6 +79,7 @@ ext {
             javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
             androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
             rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             arrow:              "com.fernandocejas:arrow:${arrowVersion}",
             retrofit2rxJava2:   "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${retrofit2rxJava2Version}",
             retrofit2:          "com.squareup.retrofit2:retrofit:${retrofit2Version}",
