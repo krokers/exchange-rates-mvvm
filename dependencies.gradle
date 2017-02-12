@@ -18,6 +18,9 @@ ext {
     retrofit2rxJava2Version = '1.0.0'
     retrofit2Version = '2.1.0'
     retrofit2GsonConverterVersion = '2.1.0'
+    dagger2Version = '2.9'
+    dagger2CompilerVersion = '2.9'
+
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -37,13 +40,17 @@ ext {
             design:             "com.android.support:design:${designVersion}",
             rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            dagger2:            "com.google.dagger:dagger:${dagger2Version}",
+            dagger2Compiler:    "com.google.dagger:dagger-compiler:${dagger2CompilerVersion}",
     ]
 
     presentationTestDependencies = [
             robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
+            mockito:            "org.mockito:mockito-core:${mockitoVersion}",
             junit:              "junit:junit:${jUnitVersion}",
             espresso:           "com.android.support.test.espresso:espresso-core:${espressoVersion}",
             testingSupportLib:  "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
+            dagger2Compiler:    "com.google.dagger:dagger-compiler:${dagger2CompilerVersion}",
     ]
 
     domainDependencies = [

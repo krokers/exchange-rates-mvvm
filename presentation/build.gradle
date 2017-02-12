@@ -25,6 +25,13 @@ android {
     }
 }
 
+//Workaround for generated source files for test classes not accessible from Android Studio
+//see https://code.google.com/p/android/issues/detail?id=224272
+android.applicationVariants.all {
+    def aptOutputDir = new File(buildDir, "generated/source/apt/${it.unitTestVariant.dirName}")
+    it.unitTestVariant.addJavaSourceFoldersToModel(aptOutputDir)
+}
+
 dependencies {
     def presentationDependencies = rootProject.ext.presentationDependencies
     def presentationTestDependencies = rootProject.ext.presentationTestDependencies
@@ -33,9 +40,13 @@ dependencies {
     compile presentationDependencies.design
     compile presentationDependencies.rxJava
     compile presentationDependencies.rxAndroid
+    compile presentationDependencies.dagger2
+    annotationProcessor presentationDependencies.dagger2Compiler
 
     testCompile presentationTestDependencies.robolectric
     testCompile presentationTestDependencies.junit
+    testCompile presentationTestDependencies.mockito
+    testAnnotationProcessor presentationTestDependencies.dagger2Compiler
 
     androidTestCompile presentationTestDependencies.espresso
     androidTestCompile presentationTestDependencies.testingSupportLib
