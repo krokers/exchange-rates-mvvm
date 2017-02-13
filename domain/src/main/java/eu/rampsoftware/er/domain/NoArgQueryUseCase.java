@@ -20,7 +20,7 @@ public abstract class NoArgQueryUseCase<R> extends DisposableUseCase {
     private final Scheduler mWorkScheduler;
     private final Scheduler mObserveScheduler;
 
-    NoArgQueryUseCase(Scheduler workScheduler, Scheduler observeScheduler) {
+    public NoArgQueryUseCase(Scheduler workScheduler, Scheduler observeScheduler) {
         this.mWorkScheduler = workScheduler;
         this.mObserveScheduler = observeScheduler;
     }

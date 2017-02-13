@@ -2,14 +2,13 @@ package eu.rampsoftware.er.view.currencies;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import javax.inject.Inject;
 
 import eu.rampsoftware.er.ExchangeRatesApplication;
 import eu.rampsoftware.er.R;
 import eu.rampsoftware.er.data.CurrencyRepository;
-import eu.rampsoftware.er.data.repository.CachingCurrencyRepository;
+import eu.rampsoftware.er.data.PreferencesData;
 import eu.rampsoftware.er.di.CurrenciesActivityModule;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
 import eu.rampsoftware.er.properties.ApplicationProperties;
@@ -27,16 +26,21 @@ public class CurrenciesActivity extends AppCompatActivity {
     @Inject
     CurrencyRepository mCurrencyRepository;
 
+    @Inject
+    PreferencesData mPreferencesData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currencies);
         ((ExchangeRatesApplication)getApplication())
                 .getApplicationComponent()
-                .newCurrenciesActivitySubComponent(new CurrenciesActivityModule())
+                .newCurrenciesActivitySubComponent(new CurrenciesActivityModule(this))
                 .inject(this);
         mViewModel = new CurrencyListViewModel(
-                new GetCurrenciesUseCase(AndroidSchedulers.mainThread(), Schedulers.io(), mCurrencyRepository));
+                new GetCurrenciesUseCase(AndroidSchedulers.mainThread(), Schedulers.io(),
+                        mCurrencyRepository,
+                        mPreferencesData));
         mViewModel.onLoad();
     }
 
