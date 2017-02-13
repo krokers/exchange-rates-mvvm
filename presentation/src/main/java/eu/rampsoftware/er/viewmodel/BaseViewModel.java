@@ -1,13 +1,11 @@
 package eu.rampsoftware.er.viewmodel;
 
-import android.os.Bundle;
-
 /**
- * Created by Ramps on 2017-02-04.
+ * Interface with a contract that needs to be fulfilled by view model classes.
  */
-
 public interface BaseViewModel {
+    /**
+     * Invoked when view is initialized and is ready to display the data exposed by view model.
+     */
     void onLoad();
-    void onSaveInstanceState(Bundle bundle);
-    void onRestoreInstanceState(Bundle bundle);
 }
