@@ -21,6 +21,7 @@ ext {
     dagger2Version = '2.9'
     dagger2CompilerVersion = '2.9'
     loggingInterceptorVersion = '3.4.1'
+    recyclerBindingVersion = '0.1.2'
 
 
     //Testing
@@ -43,6 +44,7 @@ ext {
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             dagger2:            "com.google.dagger:dagger:${dagger2Version}",
             dagger2Compiler:    "com.google.dagger:dagger-compiler:${dagger2CompilerVersion}",
+            recyclerBinding:    "eu.rampsoftware:recycler-binding:${recyclerBindingVersion}"
     ]
 
     presentationTestDependencies = [

@@ -1,6 +1,7 @@
 package eu.rampsoftware.er.viewmodel.currencies;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
+import eu.rampsoftware.er.BR;
 import eu.rampsoftware.er.data.CurrencyData;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesRatesDate;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
@@ -28,6 +30,7 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
         mGetCurrenciesRatesDate = getCurrenciesRatesDate;
     }
 
+    @Bindable
     public ObservableList<CurrencyItemViewModel> getCurrencies() {
         return mCurrencies;
     }
@@ -83,6 +86,8 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
         }
     }
 
-
+    public int getItemBindingId() {
+        return BR.model;
+    }
 
 }

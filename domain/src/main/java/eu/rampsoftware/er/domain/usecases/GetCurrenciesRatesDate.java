@@ -16,9 +16,9 @@ import io.reactivex.Scheduler;
 public class GetCurrenciesRatesDate extends NoArgQueryUseCase<Optional<Date>> {
     private final PreferencesData mPreferencesData;
 
-    GetCurrenciesRatesDate(final Scheduler workScheduler,
-                           final Scheduler observeScheduler,
-                           final PreferencesData preferencesData) {
+    public GetCurrenciesRatesDate(final Scheduler workScheduler,
+                                  final Scheduler observeScheduler,
+                                  final PreferencesData preferencesData) {
         super(workScheduler, observeScheduler);
         mPreferencesData = preferencesData;
     }

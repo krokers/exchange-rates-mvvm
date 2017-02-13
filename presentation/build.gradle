@@ -46,6 +46,7 @@ dependencies {
     compile presentationDependencies.rxJava
     compile presentationDependencies.rxAndroid
     compile presentationDependencies.dagger2
+    compile presentationDependencies.recyclerBinding
     annotationProcessor presentationDependencies.dagger2Compiler
 
     testCompile presentationTestDependencies.robolectric

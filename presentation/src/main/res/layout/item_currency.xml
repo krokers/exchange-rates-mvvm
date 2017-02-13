@@ -1,0 +1,12 @@
+<!-- item_layout.xml -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="model"
+            type="eu.rampsoftware.er.viewmodel.currencies.CurrencyItemViewModel"/>
+    </data>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{model.currencyCode, default=USD}"/>
+</layout>
