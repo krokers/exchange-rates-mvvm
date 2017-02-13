@@ -10,4 +10,7 @@ import eu.rampsoftware.er.viewmodel.BaseViewModel;
 
 public class CurrencyItemViewModel  {
 
+    public CurrencyItemViewModel(final String currencyCode, final Double value) {
+
+    }
 }

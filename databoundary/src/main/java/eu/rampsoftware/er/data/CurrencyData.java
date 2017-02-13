@@ -13,4 +13,16 @@ public class CurrencyData {
         mCurrencies = currencies;
         mBaseCurrency = baseCurrency;
     }
+
+    public String getBaseCurrency() {
+        return mBaseCurrency;
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public Map<String, Double> getCurrencies() {
+        return mCurrencies;
+    }
 }
