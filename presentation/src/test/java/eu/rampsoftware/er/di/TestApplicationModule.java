@@ -7,8 +7,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import eu.rampsoftware.er.data.CurrencyDataSource;
 import eu.rampsoftware.er.data.CurrencyRepository;
+import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.remote.CurrencyDataApi;
 import eu.rampsoftware.er.properties.ApplicationProperties;
 import eu.rampsoftware.er.properties.ResourcesApplicationProperties;

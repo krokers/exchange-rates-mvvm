@@ -19,7 +19,7 @@ public abstract class CommandUseCase<T> extends DisposableUseCase {
     private final Scheduler mWorkScheduler;
     private final Scheduler mObserveScheduler;
 
-    CommandUseCase(Scheduler workScheduler, Scheduler observeScheduler) {
+    public CommandUseCase(Scheduler workScheduler, Scheduler observeScheduler) {
         this.mWorkScheduler = workScheduler;
         this.mObserveScheduler = observeScheduler;
     }

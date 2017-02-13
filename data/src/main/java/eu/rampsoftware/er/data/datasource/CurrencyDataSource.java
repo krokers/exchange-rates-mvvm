@@ -1,7 +1,8 @@
-package eu.rampsoftware.er.data;
+package eu.rampsoftware.er.data.datasource;
 
 import java.util.Date;
 
+import eu.rampsoftware.er.data.CurrencyData;
 import io.reactivex.Observable;
 
 /**

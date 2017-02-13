@@ -2,6 +2,7 @@ package eu.rampsoftware.er.di;
 
 import com.google.gson.Gson;
 
+import dagger.Module;
 import dagger.Provides;
 import eu.rampsoftware.er.data.datasource.remote.CurrencyDataApi;
 import eu.rampsoftware.er.properties.ApplicationProperties;
@@ -11,7 +12,7 @@ import retrofit2.Retrofit;
 /**
  * Created by Ramps on 2017-02-12.
  */
-
+@Module
 class TestNetModule implements INetModule {
 
     @Provides

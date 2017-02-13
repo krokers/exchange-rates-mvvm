@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import eu.rampsoftware.er.data.CurrencyData;
 
-import eu.rampsoftware.er.data.CurrencyDataSource;
+import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.remote.dto.CurrencyList;
 import eu.rampsoftware.er.data.datasource.remote.mapper.CurrencyListMapper;
 import io.reactivex.Observable;
