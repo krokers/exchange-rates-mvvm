@@ -8,10 +8,12 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import eu.rampsoftware.er.data.CurrencyRepository;
+import eu.rampsoftware.er.data.PreferencesData;
 import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.local.DatabaseCurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.remote.CurrencyDataApi;
 import eu.rampsoftware.er.data.datasource.remote.RetrofitCurrencyDataSource;
+import eu.rampsoftware.er.data.preferences.SharedPreferencesData;
 import eu.rampsoftware.er.data.repository.CachingCurrencyRepository;
 import eu.rampsoftware.er.properties.ApplicationProperties;
 import eu.rampsoftware.er.properties.ResourcesApplicationProperties;
@@ -72,5 +74,13 @@ public class ApplicationModule implements IApplicationModule {
     public CurrencyRepository provideCurrencyRepository(@Named("local") final CurrencyDataSource localSource,
                                                         @Named("remote") final CurrencyDataSource remoteSource){
         return new CachingCurrencyRepository(localSource, remoteSource);
+    }
+
+    @Provides
+    @Singleton
+    @Override
+    public PreferencesData providePreferencesData(ApplicationProperties properties){
+        return new SharedPreferencesData(mContext.getSharedPreferences(
+                properties.sharedPreferencesName(), Context.MODE_PRIVATE));
     }
 }

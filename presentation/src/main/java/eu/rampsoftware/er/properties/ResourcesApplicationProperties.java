@@ -31,4 +31,9 @@ public class ResourcesApplicationProperties implements ApplicationProperties {
     public String getOerAppId() {
         return mContext.getString(R.string.oer_app_id);
     }
+
+    @Override
+    public String sharedPreferencesName() {
+        return mContext.getResources().getString(R.string.shared_preferences_name);
+    }
 }

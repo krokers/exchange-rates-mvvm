@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import eu.rampsoftware.er.data.CurrencyRepository;
+import eu.rampsoftware.er.data.PreferencesData;
 import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.remote.CurrencyDataApi;
 import eu.rampsoftware.er.properties.ApplicationProperties;
@@ -60,6 +61,12 @@ public class TestApplicationModule implements IApplicationModule{
     @Provides
     @Override
     public CurrencyRepository provideCurrencyRepository(@Named("local") final CurrencyDataSource localSource, @Named("remote") final CurrencyDataSource remoteSource) {
+        return null;
+    }
+
+    @Override
+    @Provides
+    public PreferencesData providePreferencesData(final ApplicationProperties properties) {
         return null;
     }
 }

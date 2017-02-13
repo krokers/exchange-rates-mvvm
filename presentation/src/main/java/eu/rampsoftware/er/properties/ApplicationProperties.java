@@ -10,4 +10,6 @@ public interface ApplicationProperties {
     boolean logsEnabled();
 
     String getOerAppId();
+
+    String sharedPreferencesName();
 }

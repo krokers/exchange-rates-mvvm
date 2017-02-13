@@ -2,4 +2,5 @@
 <resources>
     <string name="base_url" translatable="false">https://openexchangerates.org/api/</string>
     <bool name="logs_enabled">true</bool>
+    <string name="shared_preferences_name">exchange_rates.sp</string>
 </resources>

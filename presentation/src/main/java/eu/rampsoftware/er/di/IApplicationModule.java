@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Provides;
 import eu.rampsoftware.er.data.CurrencyRepository;
+import eu.rampsoftware.er.data.PreferencesData;
 import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.remote.CurrencyDataApi;
 import eu.rampsoftware.er.properties.ApplicationProperties;
@@ -28,4 +29,6 @@ interface IApplicationModule {
 
     CurrencyRepository provideCurrencyRepository(@Named("local") CurrencyDataSource localSource,
                                                  @Named("remote") CurrencyDataSource remoteSource);
+
+    PreferencesData providePreferencesData(ApplicationProperties properties);
 }
