@@ -14,11 +14,11 @@ import eu.rampsoftware.er.BR;
 public class CurrencyItemViewModel extends BaseObservable{
 
     private final String mCurrencyCode;
-    private final Double mCurrencyValue;
+    private final String mCurrencyValue;
 
     public CurrencyItemViewModel(final String currencyCode, final Double value) {
         mCurrencyCode = currencyCode;
-        mCurrencyValue = value;
+        mCurrencyValue = String.format(Locale.ENGLISH,"%.2f $", value);
         notifyPropertyChanged(BR.currencyCode);
         notifyPropertyChanged(BR.currencyValue);
     }
@@ -30,6 +30,6 @@ public class CurrencyItemViewModel extends BaseObservable{
 
     @Bindable
     public String getCurrencyValue() {
-        return String.format(Locale.ENGLISH,"%.2f", mCurrencyValue);
+        return mCurrencyValue;
     }
 }

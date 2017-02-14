@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:bind="http://schemas.android.com/tools"
     >
 
@@ -33,14 +34,40 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/dashboard_challenge_section_list"
+        <eu.rampsoftware.er.widget.CustomSwipeRefreshLayout
+            android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            bind:itemBindingId="@{model.itemBindingId}"
-            bind:itemLayout="@{@layout/item_currency}"
-            bind:items="@{model.currencies}"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:onRefreshListener="@{model.performRefresh}"
+            app:refreshing="@{model.progressVisible}">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <eu.rampsoftware.er.widget.ValueSwitcher
+                    android:id="@+id/currencies_switcher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    app:textValue="@{model.dateText}"
+                    app:onNextClickListener="@{model.onNextDay}"
+                    app:onPreviousClickListener="@{model.onPreviousDay}"
+                    app:textSize="20dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/currencies_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/currencies_switcher"
+                    android:scrollbars="vertical"
+                    bind:itemBindingId="@{model.itemBindingId}"
+                    bind:itemLayout="@{@layout/item_currency}"
+                    bind:items="@{model.currencies}"/>
+            </RelativeLayout>
+        </eu.rampsoftware.er.widget.CustomSwipeRefreshLayout>
+
 
     </android.support.design.widget.CoordinatorLayout>
 

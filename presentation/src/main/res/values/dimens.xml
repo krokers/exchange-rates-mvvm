@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_normal">18sp</dimen>
+    <dimen name="text_size_large">22sp</dimen>
+    <dimen name="text_size_extra_large">28sp</dimen>
+
+    <dimen name="spacing_nano">2dp</dimen>
+    <dimen name="spacing_extra_small">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_normal">12dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+    <dimen name="spacing_extra_large">20dp</dimen>
+    <dimen name="spacing_extra_extra_large">24dp</dimen>
+    <dimen name="spacing_extra_extra_extra_large">42dp</dimen>
+    <dimen name="elevation_card">2dp</dimen>
+    <dimen name="radius_card">4dp</dimen>
+
+</resources>

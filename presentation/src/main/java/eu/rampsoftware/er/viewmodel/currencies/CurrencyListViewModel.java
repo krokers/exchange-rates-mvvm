@@ -29,6 +29,7 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
     private boolean mIsProgressVisible;
     private Date mReadDate;
     private SimpleDateFormat mDateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
     public CurrencyListViewModel(GetCurrenciesUseCase currenciesUseCase, GetCurrenciesRatesDate getCurrenciesRatesDate) {
         mCurrencies = new ObservableArrayList<>();
         mCurrenciesUseCase = currenciesUseCase;
@@ -75,6 +76,7 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
     private void onCurrencyDataLoaded(final CurrencyData currencyData) {
         final Map<String, Double> currencies = currencyData.getCurrencies();
         final Set<String> currencyKeys = currencies.keySet();
+        mCurrencies.clear();
         for (String currencyCode : currencyKeys) {
             final Double value = currencies.get(currencyCode);
             mCurrencies.add(new CurrencyItemViewModel(currencyCode, value));
@@ -103,7 +105,7 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
         return mDateFormatter.format(mReadDate);
     }
 
-    public void performRefresh(){
+    public void performRefresh() {
         setProgressVisible(true);
         onDate(mReadDate);
     }
@@ -118,6 +120,7 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
 
         @Override
         public void onError(final Throwable e) {
+            setProgressVisible(false);
         }
 
         @Override
@@ -134,6 +137,7 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
 
         @Override
         public void onError(final Throwable e) {
+            setProgressVisible(false);
         }
 
         @Override

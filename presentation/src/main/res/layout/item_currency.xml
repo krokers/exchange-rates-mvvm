@@ -1,12 +1,44 @@
 <!-- item_layout.xml -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="model"
             type="eu.rampsoftware.er.viewmodel.currencies.CurrencyItemViewModel"/>
     </data>
-    <TextView
-        android:layout_width="wrap_content"
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/item_card_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{model.currencyCode, default=USD}"/>
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/spacing_extra_small"
+        card_view:cardBackgroundColor="@android:color/white"
+        card_view:cardCornerRadius="@dimen/radius_card"
+        card_view:cardElevation="@dimen/elevation_card"
+        card_view:contentPadding="@dimen/spacing_normal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_large"
+                android:text="@{model.currencyCode, default=USD}"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="@dimen/text_size_large"
+                android:layout_weight="1"
+                android:text="@{model.currencyValue, default=12}"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </layout>

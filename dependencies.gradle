@@ -7,6 +7,7 @@ ext {
 
     //Libraries
     recyclerViewVersion = '21.0.3'
+    cardViewVersion = '21.0.3'
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
     androidAnnotationsVersion = '21.0.3'
@@ -23,7 +24,6 @@ ext {
     loggingInterceptorVersion = '3.4.1'
     recyclerBindingVersion = '0.1.2'
 
-
     //Testing
     robolectricVersion = '3.2.2'
     jUnitVersion = '4.12'
@@ -37,6 +37,7 @@ ext {
 
     presentationDependencies = [
             recyclerView:       "com.android.support:recyclerview-v7:${recyclerViewVersion}",
+            cardView:           "com.android.support:cardview-v7:${cardViewVersion}",
             javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             appCompat:          "com.android.support:appcompat-v7:${appCompatVersion}",
             design:             "com.android.support:design:${designVersion}",
