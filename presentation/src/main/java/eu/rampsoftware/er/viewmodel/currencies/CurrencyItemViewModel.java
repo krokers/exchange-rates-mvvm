@@ -2,6 +2,9 @@ package eu.rampsoftware.er.viewmodel.currencies;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+
+import java.util.Locale;
+
 import eu.rampsoftware.er.BR;
 
 /**
@@ -26,7 +29,7 @@ public class CurrencyItemViewModel extends BaseObservable{
     }
 
     @Bindable
-    public Double getCurrencyValue() {
-        return mCurrencyValue;
+    public String getCurrencyValue() {
+        return String.format(Locale.ENGLISH,"%.2f", mCurrencyValue);
     }
 }

@@ -7,7 +7,9 @@ import android.databinding.ObservableList;
 
 import com.fernandocejas.arrow.optional.Optional;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -23,11 +25,30 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
     private final GetCurrenciesUseCase mCurrenciesUseCase;
     private final GetCurrenciesRatesDate mGetCurrenciesRatesDate;
     private ObservableList<CurrencyItemViewModel> mCurrencies;
-
+    private long DAY_MILLIS = 24 * 3600 * 1000;
+    private boolean mIsProgressVisible;
+    private Date mReadDate;
+    private SimpleDateFormat mDateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     public CurrencyListViewModel(GetCurrenciesUseCase currenciesUseCase, GetCurrenciesRatesDate getCurrenciesRatesDate) {
         mCurrencies = new ObservableArrayList<>();
         mCurrenciesUseCase = currenciesUseCase;
         mGetCurrenciesRatesDate = getCurrenciesRatesDate;
+        setReadDate(new Date());
+    }
+
+    public void setReadDate(final Date readDate) {
+        mReadDate = readDate;
+        notifyPropertyChanged(BR.dateText);
+    }
+
+    @Bindable
+    public boolean isProgressVisible() {
+        return mIsProgressVisible;
+    }
+
+    public void setProgressVisible(final boolean progressVisible) {
+        mIsProgressVisible = progressVisible;
+        notifyPropertyChanged(BR.progressVisible);
     }
 
     @Bindable
@@ -37,12 +58,18 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
 
     @Override
     public void onLoad() {
+        setProgressVisible(true);
         mGetCurrenciesRatesDate.run(new DateObserver());
     }
 
-    private void onDate(final Optional<Date> date) {
-        Date readDate = date.or(new Date());
-        mCurrenciesUseCase.run(new CurrenciesDataObserver(), new GetCurrenciesUseCase.CurrenciesParam(readDate));
+    @Override
+    public void dispose() {
+        mGetCurrenciesRatesDate.dispose();
+        mCurrenciesUseCase.dispose();
+    }
+
+    private void onDate(final Date date) {
+        mCurrenciesUseCase.run(new CurrenciesDataObserver(), new GetCurrenciesUseCase.CurrenciesParam(date));
     }
 
     private void onCurrencyDataLoaded(final CurrencyData currencyData) {
@@ -55,26 +82,38 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
 
     }
 
+    public int getItemBindingId() {
+        return BR.model;
+    }
+
+    public void onNextDay() {
+        setProgressVisible(true);
+        setReadDate(new Date(mReadDate.getTime() + DAY_MILLIS));
+        onDate(mReadDate);
+    }
+
+    public void onPreviousDay() {
+        setProgressVisible(true);
+        setReadDate(new Date(mReadDate.getTime() - DAY_MILLIS));
+        onDate(mReadDate);
+    }
+
+    @Bindable
+    public String getDateText() {
+        return mDateFormatter.format(mReadDate);
+    }
+
+    public void performRefresh(){
+        setProgressVisible(true);
+        onDate(mReadDate);
+    }
+
     private final class DateObserver extends DisposableObserver<Optional<Date>> {
 
         @Override
         public void onNext(final Optional<Date> date) {
-            onDate(date);
-        }
-
-        @Override
-        public void onError(final Throwable e) {}
-
-        @Override
-        public void onComplete() {}
-    }
-
-
-
-    private final class CurrenciesDataObserver extends DisposableObserver<CurrencyData> {
-        @Override
-        public void onNext(final CurrencyData currencyData) {
-            onCurrencyDataLoaded(currencyData);
+            mReadDate = date.or(mReadDate);
+            onDate(mReadDate);
         }
 
         @Override
@@ -86,8 +125,20 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
         }
     }
 
-    public int getItemBindingId() {
-        return BR.model;
+    private final class CurrenciesDataObserver extends DisposableObserver<CurrencyData> {
+        @Override
+        public void onNext(final CurrencyData currencyData) {
+            onCurrencyDataLoaded(currencyData);
+            setProgressVisible(false);
+        }
+
+        @Override
+        public void onError(final Throwable e) {
+        }
+
+        @Override
+        public void onComplete() {
+        }
     }
 
 }

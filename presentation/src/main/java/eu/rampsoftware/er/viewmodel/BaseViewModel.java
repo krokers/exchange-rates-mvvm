@@ -8,4 +8,6 @@ public interface BaseViewModel {
      * Invoked when view is initialized and is ready to display the data exposed by view model.
      */
     void onLoad();
+
+    void dispose();
 }
