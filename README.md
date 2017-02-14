@@ -1,5 +1,3 @@
-# (GitHub-Flavored) Markdown Editor
-
 
 # ExchangeRates
 Exemplary MVVM Android application based on databinding. It presents the daily exchange rates basing on USD.
@@ -32,7 +30,7 @@ As mentioned earlier, this application uses Clean Architecture approach. Layers 
 * **domain** - pure java module with business use cases. 
 * **data** - Android module implementing the repository pattern. Retrieves data from external service and from local database (in progress).
 
-![https://drive.google.com/open?id=0B5xM_DaGK-J0LXdqQ0paWnl5akE](https://drive.google.com/open?id=0B5xM_DaGK-J0LXdqQ0paWnl5akE)
+![https://github.com/krokers/exchange-rates-mvvm/blob/master/architecture.png](https://github.com/krokers/exchange-rates-mvvm/blob/master/architecture.png)
 
 
 ## Discussions
