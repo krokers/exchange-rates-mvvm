@@ -54,7 +54,7 @@
                     app:textValue="@{model.dateText}"
                     app:onNextClickListener="@{model.onNextDay}"
                     app:onPreviousClickListener="@{model.onPreviousDay}"
-                    app:textSize="20dp"/>
+                    app:textSize="@dimen/text_size_normal"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/currencies_list"

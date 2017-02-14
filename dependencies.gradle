@@ -6,11 +6,11 @@ ext {
     androidCompileSdkVersion = 25
 
     //Libraries
-    recyclerViewVersion = '21.0.3'
-    cardViewVersion = '21.0.3'
+    recyclerViewVersion = '25.1.1'
+    cardViewVersion = '25.1.1'
     javaxAnnotationVersion = '1.0'
     javaxInjectVersion = '1'
-    androidAnnotationsVersion = '21.0.3'
+    androidAnnotationsVersion = '25.1.1'
     appCompatVersion = '25.1.1'
     designVersion = '25.1.1'
     rxJavaVersion = '2.0.5'

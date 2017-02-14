@@ -9,9 +9,6 @@ import eu.rampsoftware.er.properties.ApplicationProperties;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
-/**
- * Created by Ramps on 2017-02-12.
- */
 @Module
 class TestNetModule implements INetModule {
 

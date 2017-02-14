@@ -6,10 +6,6 @@ import eu.rampsoftware.er.domain.usecases.GetCurrenciesRatesDate;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
 import eu.rampsoftware.er.viewmodel.currencies.CurrencyListViewModel;
 
-/**
- * Created by Ramps on 2017-02-13.
- */
-
 interface ICurrenciesActivityModule {
     GetCurrenciesUseCase provideGetCurrenciesUseCase(CurrencyRepository mCurrencyRepository,
                                                      PreferencesData mPreferencesData);

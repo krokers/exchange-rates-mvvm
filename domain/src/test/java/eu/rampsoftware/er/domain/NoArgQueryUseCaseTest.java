@@ -13,9 +13,6 @@ import io.reactivex.schedulers.TestScheduler;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by Ramps on 2017-02-05.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class NoArgQueryUseCaseTest {
 

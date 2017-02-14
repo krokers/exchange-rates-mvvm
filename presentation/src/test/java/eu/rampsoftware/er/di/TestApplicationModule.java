@@ -14,9 +14,6 @@ import eu.rampsoftware.er.data.datasource.remote.CurrencyDataApi;
 import eu.rampsoftware.er.properties.ApplicationProperties;
 import eu.rampsoftware.er.properties.ResourcesApplicationProperties;
 
-/**
- * Created by Ramps on 2017-02-12.
- */
 @Module
 public class TestApplicationModule implements IApplicationModule{
 

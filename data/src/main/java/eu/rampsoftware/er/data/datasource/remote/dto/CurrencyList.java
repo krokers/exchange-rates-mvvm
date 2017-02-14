@@ -4,8 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
 
-import io.reactivex.ObservableSource;
-
 public class CurrencyList {
 
     @SerializedName("disclaimer")

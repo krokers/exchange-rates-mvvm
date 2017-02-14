@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import eu.rampsoftware.er.R;
 
-/**
- * Created by Ramps on 2017-02-14.
- */
-
 public class ValueSwitcher extends LinearLayout {
     private TextView mTextValue;
     private ImageView mImagePrevious;

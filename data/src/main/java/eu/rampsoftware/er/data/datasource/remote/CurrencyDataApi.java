@@ -7,10 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-/**
- * Created by Ramps on 2017-02-05.
- */
-
 public interface CurrencyDataApi {
 
     @GET("/historical/{date}.json")

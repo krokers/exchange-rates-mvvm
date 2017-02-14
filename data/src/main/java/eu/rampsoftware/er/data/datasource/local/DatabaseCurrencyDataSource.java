@@ -12,7 +12,7 @@ public class DatabaseCurrencyDataSource implements CurrencyDataSource {
 
     @Override
     public Observable<CurrencyData> getCurrencies(final Date date) {
-        return null;
+        throw new RuntimeException("Not yet implemented");
     }
 
 }

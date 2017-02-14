@@ -7,10 +7,6 @@ import java.util.Locale;
 
 import eu.rampsoftware.er.BR;
 
-/**
- * Created by Ramps on 2017-02-04.
- */
-
 public class CurrencyItemViewModel extends BaseObservable{
 
     private final String mCurrencyCode;

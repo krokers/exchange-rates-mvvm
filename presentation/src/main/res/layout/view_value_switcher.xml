@@ -8,7 +8,8 @@
         android:id="@+id/vs_image_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/arrow_left_bold"/>
+        android:src="@drawable/arrow_left_bold"
+        android:contentDescription="@string/currencies_previous_item"/>
 
     <TextView
         android:id="@+id/vs_text_value"
@@ -22,6 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/arrow_right_bold"
-        />
+        android:contentDescription="@string/currencies_next_item"/>
 
 </LinearLayout>

@@ -8,20 +8,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import eu.rampsoftware.er.domain.executor.PostExecutionThread;
-import eu.rampsoftware.er.domain.executor.ThreadExecutor;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
-import io.reactivex.Observable;
 import io.reactivex.Scheduler;
-import io.reactivex.schedulers.TestScheduler;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
 
-/**
- * Created by Ramps on 2017-02-05.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class CommandUseCaseTest {
 

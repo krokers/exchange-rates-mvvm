@@ -15,9 +15,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by Ramps on 2017-02-12.
- */
 @Module
 public class NetModule implements INetModule{
 

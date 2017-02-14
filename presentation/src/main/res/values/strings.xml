@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ExchangeRates</string>
+    <string name="currencies_previous_item">Previous Item</string>
+    <string name="currencies_next_item">Next Item</string>
 </resources>

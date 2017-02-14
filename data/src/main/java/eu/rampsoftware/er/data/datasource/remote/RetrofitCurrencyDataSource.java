@@ -2,7 +2,6 @@ package eu.rampsoftware.er.data.datasource.remote;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import eu.rampsoftware.er.data.CurrencyData;
@@ -14,10 +13,6 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
-
-/**
- * Created by Ramps on 2017-02-05.
- */
 
 public class RetrofitCurrencyDataSource implements CurrencyDataSource {
 

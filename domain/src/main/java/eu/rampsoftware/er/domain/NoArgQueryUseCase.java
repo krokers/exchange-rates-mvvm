@@ -3,12 +3,9 @@ package eu.rampsoftware.er.domain;
 
 import com.fernandocejas.arrow.checks.Preconditions;
 
-import eu.rampsoftware.er.domain.executor.PostExecutionThread;
-import eu.rampsoftware.er.domain.executor.ThreadExecutor;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Abstraction for single unit of work from business logic standpoint. Purpose of this use case
