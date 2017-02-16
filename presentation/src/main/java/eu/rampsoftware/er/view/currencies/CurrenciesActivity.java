@@ -10,23 +10,11 @@ import javax.inject.Inject;
 import eu.rampsoftware.er.BR;
 import eu.rampsoftware.er.ExchangeRatesApplication;
 import eu.rampsoftware.er.R;
-import eu.rampsoftware.er.data.CurrencyRepository;
-import eu.rampsoftware.er.data.PreferencesData;
 import eu.rampsoftware.er.di.CurrenciesActivityModule;
-import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
-import eu.rampsoftware.er.properties.ApplicationProperties;
 import eu.rampsoftware.er.viewmodel.currencies.CurrencyListViewModel;
 
 public class CurrenciesActivity extends AppCompatActivity {
 
-    @Inject
-    ApplicationProperties mApplicationProperties;
-    @Inject
-    CurrencyRepository mCurrencyRepository;
-    @Inject
-    PreferencesData mPreferencesData;
-    @Inject
-    GetCurrenciesUseCase mGetCurrenciesUseCase;
     @Inject
     CurrencyListViewModel mViewModel;
 

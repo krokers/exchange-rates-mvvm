@@ -13,10 +13,10 @@ Exemplary MVVM Android application based on databinding. It presents the daily e
 ## How to run
 
 This application uses external service exposing the currency rates. If you want to run it yourself:
-1. Open this page: https://openexchangerates.org/,
-2. Register a free account
-3. Request application ID
-4. Add the application ID as a resource of this project, eg:
+ 1. Open this page: https://openexchangerates.org/,
+ 2. Register a free account
+ 3. Request application ID
+ 4. Add the application ID as a resource of this project, eg:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
