@@ -8,4 +8,6 @@ import io.reactivex.Observable;
 public interface CurrencyDataSource {
 
     Observable<CurrencyData> getCurrencies(Date date);
+
+    void storeCurrencies(CurrencyData currencyData);
 }

@@ -8,6 +8,6 @@ import eu.rampsoftware.er.data.datasource.remote.dto.CurrencyList;
 public class CurrencyListMapper {
 
     public static CurrencyData toCurrencyData(final CurrencyList currencyList) {
-        return new CurrencyData(new Date(currencyList.getTimestamp()), currencyList.getRates(), currencyList.getBase());
+        return new CurrencyData(new Date(currencyList.getTimestamp() * 1000), currencyList.getRates(), currencyList.getBase());
     }
 }

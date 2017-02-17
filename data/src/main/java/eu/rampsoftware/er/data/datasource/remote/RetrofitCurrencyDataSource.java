@@ -27,8 +27,6 @@ public class RetrofitCurrencyDataSource implements CurrencyDataSource {
         mAppId = appId;
     }
 
-
-
     @Override
     public Observable<CurrencyData> getCurrencies(Date date) {
 
@@ -38,6 +36,11 @@ public class RetrofitCurrencyDataSource implements CurrencyDataSource {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(entryListDtoResponse -> Observable.just(entryListDtoResponse.body()))
                 .flatMap(currencyList -> Observable.just(CurrencyListMapper.toCurrencyData(currencyList)));
+    }
+
+    @Override
+    public void storeCurrencies(final CurrencyData currencyData) {
+        throw new RuntimeException("Not yet implemented");
     }
 
 
