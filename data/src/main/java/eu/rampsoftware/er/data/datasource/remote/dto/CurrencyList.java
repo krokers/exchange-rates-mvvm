@@ -14,7 +14,7 @@ public class CurrencyList {
     private String license;
     @SerializedName("timestamp")
     @Expose
-    private Integer timestamp;
+    private Long timestamp;
     @SerializedName("base")
     @Expose
     private String base;
@@ -38,11 +38,11 @@ public class CurrencyList {
         this.license = license;
     }
 
-    public Integer getTimestamp() {
+    public Long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
+    public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 
