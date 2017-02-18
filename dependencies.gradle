@@ -23,6 +23,7 @@ ext {
     dagger2CompilerVersion = '2.9'
     loggingInterceptorVersion = '3.4.1'
     recyclerBindingVersion = '0.1.2'
+    annimonStreamVersion = '1.1.5'
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -88,6 +89,7 @@ ext {
             retrofit2:          "com.squareup.retrofit2:retrofit:${retrofit2Version}",
             retrofit2GsonConverter: "com.squareup.retrofit2:converter-gson:${retrofit2GsonConverterVersion}",
             loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:${loggingInterceptorVersion}",
+            annimonStream:      "com.annimon:stream:${annimonStreamVersion}",
     ]
 
     dataTestDependencies = [
