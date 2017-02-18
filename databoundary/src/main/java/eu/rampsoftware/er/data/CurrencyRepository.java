@@ -9,4 +9,5 @@ public interface CurrencyRepository {
 
     Observable<CurrencyData> getCurrencies(final Date date);
 
+    Observable<SingleValue> getSeries(Date from, Date to, String currencyCode);
 }

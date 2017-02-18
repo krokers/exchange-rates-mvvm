@@ -1,17 +1,24 @@
 package eu.rampsoftware.er.data.datasource.local;
 
+
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import eu.rampsoftware.er.data.CurrencyData;
+import eu.rampsoftware.er.data.SingleValue;
 import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.local.model.ValueEntity;
 import io.reactivex.Observable;
 import io.realm.RealmResults;
 
+import static eu.rampsoftware.er.data.utils.DateUtils.*;
+
 public class DatabaseCurrencyDataSource extends RealmManagerBase implements CurrencyDataSource {
-    private static final long DAY_MILLIS = 24 * 3600 * 1000;
+
 
     public DatabaseCurrencyDataSource() {
         super();
@@ -19,6 +26,7 @@ public class DatabaseCurrencyDataSource extends RealmManagerBase implements Curr
 
     @Override
     public Observable<CurrencyData> getCurrencies(final Date date) {
+
         final long midnight = midnight(date.getTime());
         return readFromRealm(realm -> {
             final RealmResults<ValueEntity> items = realm.where(ValueEntity.class)
@@ -32,6 +40,34 @@ public class DatabaseCurrencyDataSource extends RealmManagerBase implements Curr
                 currencies.put(item.getCode(), item.getValue());
             }
             return Observable.just(new CurrencyData(new Date(midnight), currencies, ""));
+        });
+    }
+
+    @Override
+    public boolean containsCurrencyValue(final Date date, final String currencyCode) {
+        final long midnight = midnight(date.getTime());
+        return readFromRealm(realm -> {
+            final long etriesCount = realm.where(ValueEntity.class)
+                    .equalTo(ValueEntity.TIMESTAMP, midnight)
+                    .equalTo(ValueEntity.CODE, currencyCode)
+                    .count();
+            return etriesCount != 0;
+        });
+    }
+
+    @Override
+    public Observable<SingleValue> getCurrencyValues(final Date startDate, final Date endDate, final String currencyCode) {
+        final long startMidnight = midnight(startDate.getTime());
+        final long endMidnight = midnight(endDate.getTime());
+        return readFromRealm(realm -> {
+            final RealmResults<ValueEntity> items = realm.where(ValueEntity.class)
+                    .between(ValueEntity.TIMESTAMP, startMidnight, endMidnight)
+                    .equalTo(ValueEntity.CODE, currencyCode)
+                    .findAll();
+            return Observable.fromIterable(
+                    Stream.of(items).map(item -> new SingleValue(new Date(item.getTimestamp()), item.getValue()))
+                            .collect(Collectors.toList())
+            );
         });
     }
 
@@ -52,8 +88,6 @@ public class DatabaseCurrencyDataSource extends RealmManagerBase implements Curr
         });
     }
 
-    private long midnight(final long timestamp) {
-        return (timestamp / DAY_MILLIS) * DAY_MILLIS;
-    }
+
 
 }

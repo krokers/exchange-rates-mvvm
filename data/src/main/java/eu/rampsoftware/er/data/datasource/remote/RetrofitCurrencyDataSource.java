@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import eu.rampsoftware.er.data.CurrencyData;
 
+import eu.rampsoftware.er.data.SingleValue;
 import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.remote.dto.CurrencyList;
 import eu.rampsoftware.er.data.datasource.remote.mapper.CurrencyListMapper;
@@ -36,6 +37,16 @@ public class RetrofitCurrencyDataSource implements CurrencyDataSource {
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(entryListDtoResponse -> Observable.just(entryListDtoResponse.body()))
                 .flatMap(currencyList -> Observable.just(CurrencyListMapper.toCurrencyData(currencyList)));
+    }
+
+    @Override
+    public boolean containsCurrencyValue(final Date date, final String currencyCode) {
+        return false;
+    }
+
+    @Override
+    public Observable<SingleValue> getCurrencyValues(final Date startDate, final Date endDate, final String currencyCode) {
+        return Observable.empty();
     }
 
     @Override
