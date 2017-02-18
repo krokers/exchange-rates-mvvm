@@ -30,8 +30,9 @@ As mentioned earlier, this application uses Clean Architecture approach. Layers 
 * **domain** - pure java module with business use cases. 
 * **data** - Android module implementing the repository pattern. Retrieves data from external service and from local database (in progress).
 
-![https://github.com/krokers/exchange-rates-mvvm/blob/master/architecture.png](https://github.com/krokers/exchange-rates-mvvm/blob/master/architecture.png)
-
+<p align="center">
+  <img src="https://github.com/krokers/exchange-rates-mvvm/blob/master/architecture.png" alt="General overview diagram"/>
+</p>
 
 ## Discussions
 
