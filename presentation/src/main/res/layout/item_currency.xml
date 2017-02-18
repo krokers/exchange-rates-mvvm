@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/spacing_extra_small"
+        android:onClick="@{model.onItemClicked}"
         card_view:cardBackgroundColor="@android:color/white"
         card_view:cardCornerRadius="@dimen/radius_card"
         card_view:cardElevation="@dimen/elevation_card"

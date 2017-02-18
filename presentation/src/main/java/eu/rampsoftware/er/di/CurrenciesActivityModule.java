@@ -1,7 +1,9 @@
 package eu.rampsoftware.er.di;
 
 
-import android.content.Context;
+import android.app.Activity;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -9,6 +11,7 @@ import eu.rampsoftware.er.data.CurrencyRepository;
 import eu.rampsoftware.er.data.PreferencesData;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesRatesDate;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
+import eu.rampsoftware.er.navigation.Navigator;
 import eu.rampsoftware.er.viewmodel.currencies.CurrencyListViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -20,10 +23,17 @@ import io.reactivex.schedulers.Schedulers;
 @Module
 public class CurrenciesActivityModule implements ICurrenciesActivityModule {
 
-    private final Context mContext;
+    private final Activity mContext;
 
-    public CurrenciesActivityModule(final Context context) {
+    public CurrenciesActivityModule(final Activity context) {
         mContext = context;
+    }
+
+    @Provides
+    @CurrenciesActivityScope
+    @Override
+    public Activity provideActivity(){
+        return mContext;
     }
 
 
@@ -47,9 +57,17 @@ public class CurrenciesActivityModule implements ICurrenciesActivityModule {
     @Provides
     @CurrenciesActivityScope
     @Override
-    public CurrencyListViewModel provideCurrencyListViewModel(final GetCurrenciesUseCase currenciesUseCase,
+    public CurrencyListViewModel provideCurrencyListViewModel(final Navigator navigator,
+                                                              final GetCurrenciesUseCase currenciesUseCase,
                                                               final GetCurrenciesRatesDate getCurrenciesRatesDate){
-        return new CurrencyListViewModel( currenciesUseCase, getCurrenciesRatesDate );
+        return new CurrencyListViewModel( navigator, currenciesUseCase, getCurrenciesRatesDate );
+    }
+
+    @Provides
+    @CurrenciesActivityScope
+    @Override
+    public Navigator provideNavigator(Activity context){
+        return new Navigator(context);
     }
 
 }

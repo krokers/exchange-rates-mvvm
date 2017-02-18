@@ -6,6 +6,7 @@ import java.util.Date;
 public class SingleValue {
     private Date mDate;
     private double mValue;
+
     public SingleValue(final Date date, final double value) {
         mDate = date;
         mValue = value;
@@ -17,5 +18,13 @@ public class SingleValue {
 
     public double getValue() {
         return mValue;
+    }
+
+    @Override
+    public String toString() {
+        return "SingleValue{" +
+                "mDate=" + mDate +
+                ", mValue=" + mValue +
+                '}';
     }
 }

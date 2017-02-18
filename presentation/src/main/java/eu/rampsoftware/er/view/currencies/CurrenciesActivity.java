@@ -25,7 +25,7 @@ public class CurrenciesActivity extends BaseActivity<CurrenciesActivitySubCompon
         ViewDataBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_currencies);
         binding.setVariable(BR.model, mViewModel);
         if (!isRetained(savedInstanceState)) {
-            mViewModel.onLoad();
+            mViewModel.onLoad(null);
         }
     }
 

@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.os.Bundle;
 
 import com.fernandocejas.arrow.optional.Optional;
 
@@ -17,23 +18,28 @@ import eu.rampsoftware.er.BR;
 import eu.rampsoftware.er.data.CurrencyData;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesRatesDate;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
+import eu.rampsoftware.er.navigation.Navigator;
 import eu.rampsoftware.er.viewmodel.BaseViewModel;
 import io.reactivex.observers.DisposableObserver;
+
+import static com.fernandocejas.arrow.checks.Preconditions.*;
 
 public class CurrencyListViewModel extends BaseObservable implements BaseViewModel {
 
     private final GetCurrenciesUseCase mCurrenciesUseCase;
     private final GetCurrenciesRatesDate mGetCurrenciesRatesDate;
+    private final Navigator mNavigator;
     private ObservableList<CurrencyItemViewModel> mCurrencies;
     private long DAY_MILLIS = 24 * 3600 * 1000;
     private boolean mIsProgressVisible;
     private Date mReadDate;
     private SimpleDateFormat mDateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-    public CurrencyListViewModel(GetCurrenciesUseCase currenciesUseCase, GetCurrenciesRatesDate getCurrenciesRatesDate) {
+    public CurrencyListViewModel(Navigator navigator, GetCurrenciesUseCase currenciesUseCase, GetCurrenciesRatesDate getCurrenciesRatesDate) {
         mCurrencies = new ObservableArrayList<>();
-        mCurrenciesUseCase = currenciesUseCase;
-        mGetCurrenciesRatesDate = getCurrenciesRatesDate;
+        mCurrenciesUseCase = checkNotNull(currenciesUseCase);
+        mGetCurrenciesRatesDate = checkNotNull(getCurrenciesRatesDate);
+        mNavigator = checkNotNull(navigator);
         setReadDate(new Date());
     }
 
@@ -58,7 +64,7 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
     }
 
     @Override
-    public void onLoad() {
+    public void onLoad(final Bundle bundle) {
         setProgressVisible(true);
         mGetCurrenciesRatesDate.run(new DateObserver());
     }
@@ -79,7 +85,7 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
         mCurrencies.clear();
         for (String currencyCode : currencyKeys) {
             final Double value = currencies.get(currencyCode);
-            mCurrencies.add(new CurrencyItemViewModel(currencyCode, value));
+            mCurrencies.add(new CurrencyItemViewModel(mNavigator, currencyCode, value));
         }
 
     }

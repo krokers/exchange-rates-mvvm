@@ -16,6 +16,7 @@ import java.util.HashMap;
 import eu.rampsoftware.er.data.CurrencyData;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesRatesDate;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
+import eu.rampsoftware.er.navigation.Navigator;
 import eu.rampsoftware.er.viewmodel.currencies.CurrencyListViewModel;
 import io.reactivex.observers.DisposableObserver;
 
@@ -33,6 +34,9 @@ public class CurrencyListViewModelTest {
     @Mock
     GetCurrenciesRatesDate mGetCurrenciesRatesDateMock;
 
+    @Mock
+    Navigator mNavigatorMock;
+
     @Captor
     ArgumentCaptor<DisposableObserver<Optional<Date>>> mDateObserverCaptor;
 
@@ -45,19 +49,19 @@ public class CurrencyListViewModelTest {
     @Before
     public void setUp() {
         initMocks(this);
-        viewModel = new CurrencyListViewModel(mGetCurrenciesUseCaseMock, mGetCurrenciesRatesDateMock);
+        viewModel = new CurrencyListViewModel(mNavigatorMock, mGetCurrenciesUseCaseMock, mGetCurrenciesRatesDateMock);
     }
 
     @Test
     public void thatProgressDisplayedOnLoad() {
         Assert.assertThat(viewModel.isProgressVisible(), is(false));
-        viewModel.onLoad();
+        viewModel.onLoad(null);
         Assert.assertThat(viewModel.isProgressVisible(), is(true));
     }
 
     @Test
     public void thatRequestForDatePerformedOnLoad() {
-        viewModel.onLoad();
+        viewModel.onLoad(null);
         verify(mGetCurrenciesRatesDateMock).run(mDateObserverCaptor.capture());
     }
 
@@ -70,7 +74,7 @@ public class CurrencyListViewModelTest {
 
     @Test
     public void thatRequestForCurrenciesPerformedWhenDateRetrieved() {
-        viewModel.onLoad();
+        viewModel.onLoad(null);
         verify(mGetCurrenciesRatesDateMock).run(mDateObserverCaptor.capture());
         final DisposableObserver<Optional<Date>> observer = mDateObserverCaptor.getValue();
         observer.onNext(Optional.of(new Date(MILLIS_22_01_2016__10_00)));
@@ -80,7 +84,7 @@ public class CurrencyListViewModelTest {
 
     @Test
     public void thatDayAddedOnNextClick() {
-        viewModel.onLoad();
+        viewModel.onLoad(null);
         verify(mGetCurrenciesRatesDateMock).run(mDateObserverCaptor.capture());
         final DisposableObserver<Optional<Date>> observer = mDateObserverCaptor.getValue();
         observer.onNext(Optional.of(new Date(MILLIS_22_01_2016__10_00)));
@@ -94,7 +98,7 @@ public class CurrencyListViewModelTest {
 
     @Test
     public void thatDaySubtractedOnPreviousClick() {
-        viewModel.onLoad();
+        viewModel.onLoad(null);
         verify(mGetCurrenciesRatesDateMock).run(mDateObserverCaptor.capture());
         final DisposableObserver<Optional<Date>> observer = mDateObserverCaptor.getValue();
         observer.onNext(Optional.of(new Date(MILLIS_22_01_2016__10_00)));
@@ -107,14 +111,14 @@ public class CurrencyListViewModelTest {
     }
 
     @Test
-    public void thatProgressVisbleOnNextClick(){
+    public void thatProgressVisbleOnNextClick() {
         Assert.assertThat(viewModel.isProgressVisible(), is(false));
         viewModel.onNextDay();
         Assert.assertThat(viewModel.isProgressVisible(), is(true));
     }
 
     @Test
-    public void thatProgressVisibleOnPreviousClick(){
+    public void thatProgressVisibleOnPreviousClick() {
         Assert.assertThat(viewModel.isProgressVisible(), is(false));
         viewModel.onNextDay();
         Assert.assertThat(viewModel.isProgressVisible(), is(true));
@@ -122,7 +126,7 @@ public class CurrencyListViewModelTest {
 
     @Test
     public void thatProgressDismissedOnDataRetrieved() {
-        viewModel.onLoad();
+        viewModel.onLoad(null);
         verify(mGetCurrenciesRatesDateMock).run(mDateObserverCaptor.capture());
         final DisposableObserver<Optional<Date>> observer = mDateObserverCaptor.getValue();
         observer.onNext(Optional.of(new Date(MILLIS_22_01_2016__10_00)));
@@ -137,8 +141,8 @@ public class CurrencyListViewModelTest {
     }
 
     @Test
-    public void thatObserversDisposedOnViewModelDispose(){
-        viewModel.onLoad();
+    public void thatObserversDisposedOnViewModelDispose() {
+        viewModel.onLoad(null);
         verify(mGetCurrenciesRatesDateMock).run(mDateObserverCaptor.capture());
         final DisposableObserver<Optional<Date>> observer = mDateObserverCaptor.getValue();
         observer.onNext(Optional.of(new Date(MILLIS_22_01_2016__10_00)));
@@ -150,7 +154,7 @@ public class CurrencyListViewModelTest {
     }
 
     @Test
-    public void thatRequestPerformedOnRefresh(){
+    public void thatRequestPerformedOnRefresh() {
         viewModel.performRefresh();
 
         verify(mGetCurrenciesUseCaseMock).run(mCurrenciesObserverCaptor.capture(),
@@ -158,7 +162,7 @@ public class CurrencyListViewModelTest {
     }
 
     @Test
-    public void thatProgressVisibleOnRefresh(){
+    public void thatProgressVisibleOnRefresh() {
         viewModel.performRefresh();
 
         Assert.assertThat(viewModel.isProgressVisible(), is(true));

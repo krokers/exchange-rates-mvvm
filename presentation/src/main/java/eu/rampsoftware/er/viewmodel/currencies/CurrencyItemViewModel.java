@@ -3,16 +3,23 @@ package eu.rampsoftware.er.viewmodel.currencies;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import com.fernandocejas.arrow.checks.Preconditions;
+
 import java.util.Locale;
 
 import eu.rampsoftware.er.BR;
+import eu.rampsoftware.er.navigation.Navigator;
+
+import static com.fernandocejas.arrow.checks.Preconditions.*;
 
 public class CurrencyItemViewModel extends BaseObservable{
 
     private final String mCurrencyCode;
     private final String mCurrencyValue;
+    private final Navigator mNavigator;
 
-    public CurrencyItemViewModel(final String currencyCode, final Double value) {
+    public CurrencyItemViewModel(Navigator navigator, final String currencyCode, final Double value) {
+        this.mNavigator = checkNotNull(navigator);
         mCurrencyCode = currencyCode;
         mCurrencyValue = String.format(Locale.ENGLISH,"%.2f $", value);
         notifyPropertyChanged(BR.currencyCode);
@@ -28,4 +35,9 @@ public class CurrencyItemViewModel extends BaseObservable{
     public String getCurrencyValue() {
         return mCurrencyValue;
     }
+
+    public void onItemClicked(Object source){
+        mNavigator.navigateToCurrencyDetails(mCurrencyCode);
+    }
+
 }
