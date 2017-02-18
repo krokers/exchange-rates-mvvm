@@ -1,6 +1,11 @@
 
 # ExchangeRates
 Exemplary MVVM Android application based on databinding. It presents the daily exchange rates basing on USD.
+
+<p align="center">
+  <img src="https://github.com/krokers/exchange-rates-mvvm/blob/master/gfx/demo.gif" alt="Demo"/>    
+</p>
+
 <br>This application was inspired by following projects, articles and presentations:
 
 * [Clean Architecture](https://github.com/android10/Android-CleanArchitecture) by Fernando Cejas,
