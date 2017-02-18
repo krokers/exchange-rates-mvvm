@@ -3,8 +3,6 @@ package eu.rampsoftware.er.di;
 
 import android.app.Activity;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import eu.rampsoftware.er.data.CurrencyRepository;
@@ -32,7 +30,7 @@ public class CurrenciesActivityModule implements ICurrenciesActivityModule {
     @Provides
     @CurrenciesActivityScope
     @Override
-    public Activity provideActivity(){
+    public Activity provideActivity() {
         return mContext;
     }
 
@@ -50,8 +48,8 @@ public class CurrenciesActivityModule implements ICurrenciesActivityModule {
     @Provides
     @CurrenciesActivityScope
     @Override
-    public GetCurrenciesRatesDate provideGetCurrenciesRatesDate(final PreferencesData preferencesData){
-        return new GetCurrenciesRatesDate(Schedulers.io(), AndroidSchedulers.mainThread(),  preferencesData);
+    public GetCurrenciesRatesDate provideGetCurrenciesRatesDate(final PreferencesData preferencesData) {
+        return new GetCurrenciesRatesDate(Schedulers.io(), AndroidSchedulers.mainThread(), preferencesData);
     }
 
     @Provides
@@ -59,14 +57,14 @@ public class CurrenciesActivityModule implements ICurrenciesActivityModule {
     @Override
     public CurrencyListViewModel provideCurrencyListViewModel(final Navigator navigator,
                                                               final GetCurrenciesUseCase currenciesUseCase,
-                                                              final GetCurrenciesRatesDate getCurrenciesRatesDate){
-        return new CurrencyListViewModel( navigator, currenciesUseCase, getCurrenciesRatesDate );
+                                                              final GetCurrenciesRatesDate getCurrenciesRatesDate) {
+        return new CurrencyListViewModel(navigator, currenciesUseCase, getCurrenciesRatesDate);
     }
 
     @Provides
     @CurrenciesActivityScope
     @Override
-    public Navigator provideNavigator(Activity context){
+    public Navigator provideNavigator(Activity context) {
         return new Navigator(context);
     }
 

@@ -11,6 +11,7 @@ import java.security.InvalidParameterException;
 import java.util.Date;
 
 import eu.rampsoftware.er.data.CurrencyRepository;
+import eu.rampsoftware.er.data.SingleValue;
 import eu.rampsoftware.er.domain.TestDisposableObserver;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.TestScheduler;
@@ -33,7 +34,7 @@ public class GetCurrencySeriesUseCaseTest {
     @Mock
     CurrencyRepository mRepositoryMock;
     private GetCurrencySeriesUseCase mUseCase;
-    private TestDisposableObserver mTestObserver;
+    private TestDisposableObserver<SingleValue> mTestObserver;
 
     @Before
     public void setUp() {

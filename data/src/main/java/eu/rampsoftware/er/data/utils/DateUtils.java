@@ -1,8 +1,5 @@
 package eu.rampsoftware.er.data.utils;
 
-/**
- * Created by Ramps on 2017-02-18.
- */
 
 public class DateUtils {
 

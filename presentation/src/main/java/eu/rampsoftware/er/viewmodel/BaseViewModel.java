@@ -8,7 +8,7 @@ import android.os.Bundle;
 public interface BaseViewModel {
     /**
      * Invoked when view is initialized and is ready to display the data exposed by view model.
-     * @param bundle
+     * @param bundle additional to be passed to the viewmodel.
      */
     void onLoad(final Bundle bundle);
 

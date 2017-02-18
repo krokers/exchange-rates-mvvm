@@ -22,10 +22,9 @@ public class NetModule implements INetModule{
     @Provides
     @Singleton
     public Gson provideGson() {
-        Gson gson = new GsonBuilder()
+        return new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 .create();
-        return gson;
     }
 
     @Override
@@ -40,11 +39,9 @@ public class NetModule implements INetModule{
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
 
-        OkHttpClient httpClient = new OkHttpClient.Builder()
+        return new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build();
-
-        return httpClient;
     }
 
     @Override
@@ -52,13 +49,12 @@ public class NetModule implements INetModule{
     @Singleton
     public Retrofit provideRetrofit(Gson gson, ApplicationProperties propertiesManager, OkHttpClient client) {
 
-        Retrofit retrofit = new Retrofit.Builder()
+        return new Retrofit.Builder()
                 .baseUrl(propertiesManager.baseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
-        return retrofit;
     }
 
     @Override

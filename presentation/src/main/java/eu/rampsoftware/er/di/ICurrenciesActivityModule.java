@@ -2,9 +2,6 @@ package eu.rampsoftware.er.di;
 
 import android.app.Activity;
 
-import javax.inject.Singleton;
-
-import dagger.Provides;
 import eu.rampsoftware.er.data.CurrencyRepository;
 import eu.rampsoftware.er.data.PreferencesData;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesRatesDate;

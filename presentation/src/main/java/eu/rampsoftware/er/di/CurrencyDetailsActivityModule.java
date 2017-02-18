@@ -6,10 +6,7 @@ import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import eu.rampsoftware.er.data.CurrencyRepository;
-import eu.rampsoftware.er.domain.usecases.GetCurrenciesRatesDate;
-import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
 import eu.rampsoftware.er.domain.usecases.GetCurrencySeriesUseCase;
-import eu.rampsoftware.er.viewmodel.currencies.CurrencyListViewModel;
 import eu.rampsoftware.er.viewmodel.details.CurrencyDetailsViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -40,8 +37,8 @@ public class CurrencyDetailsActivityModule implements ICurrencyDetailsActivityMo
     @Provides
     @CurrencyDetailsActivityScope
     @Override
-    public CurrencyDetailsViewModel provideCurrencyDetailsViewModel(final GetCurrencySeriesUseCase getSeriesUseCase){
-        return new CurrencyDetailsViewModel( getSeriesUseCase );
+    public CurrencyDetailsViewModel provideCurrencyDetailsViewModel(final GetCurrencySeriesUseCase getSeriesUseCase) {
+        return new CurrencyDetailsViewModel(getSeriesUseCase);
     }
 
 }
