@@ -24,6 +24,7 @@ ext {
     loggingInterceptorVersion = '3.4.1'
     recyclerBindingVersion = '0.1.2'
     annimonStreamVersion = '1.1.5'
+    MPAndroidChartVersion = 'v3.0.1'
 
     //Testing
     robolectricVersion = '3.2.2'
@@ -46,7 +47,8 @@ ext {
             rxAndroid:          "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             dagger2:            "com.google.dagger:dagger:${dagger2Version}",
             dagger2Compiler:    "com.google.dagger:dagger-compiler:${dagger2CompilerVersion}",
-            recyclerBinding:    "eu.rampsoftware:recycler-binding:${recyclerBindingVersion}"
+            recyclerBinding:    "eu.rampsoftware:recycler-binding:${recyclerBindingVersion}",
+            MPAndroidChart:     "com.github.PhilJay:MPAndroidChart:${MPAndroidChartVersion}",
     ]
 
     presentationTestDependencies = [

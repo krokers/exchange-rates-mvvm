@@ -49,6 +49,7 @@ dependencies {
     compile presentationDependencies.recyclerBinding
     compile presentationDependencies.recyclerView
     compile presentationDependencies.cardView
+    compile presentationDependencies.MPAndroidChart
     annotationProcessor presentationDependencies.dagger2Compiler
 
     testCompile presentationTestDependencies.robolectric
