@@ -23,4 +23,5 @@ public interface ApplicationComponent {
      * @return
      */
     CurrenciesActivitySubComponent newCurrenciesActivitySubComponent(CurrenciesActivityModule module);
+    CurrencyDetailsActivitySubComponent newCurrencyDetailsActivitySubComponent(CurrencyDetailsActivityModule module);
 }
