@@ -58,7 +58,7 @@ public class CurrencyDetailsViewModel extends BaseObservable implements BaseView
 
     @Override
     public void dispose() {
-
+        mGetSeriesUseCase.dispose();
     }
 
     @Bindable

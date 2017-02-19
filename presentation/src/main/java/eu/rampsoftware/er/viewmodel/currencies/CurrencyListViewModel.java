@@ -22,7 +22,7 @@ import eu.rampsoftware.er.navigation.Navigator;
 import eu.rampsoftware.er.viewmodel.BaseViewModel;
 import io.reactivex.observers.DisposableObserver;
 
-import static com.fernandocejas.arrow.checks.Preconditions.*;
+import static com.fernandocejas.arrow.checks.Preconditions.checkNotNull;
 
 public class CurrencyListViewModel extends BaseObservable implements BaseViewModel {
 

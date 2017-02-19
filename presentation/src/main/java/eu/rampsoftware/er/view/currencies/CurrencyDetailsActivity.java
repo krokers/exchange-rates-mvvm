@@ -42,6 +42,14 @@ public class CurrencyDetailsActivity extends BaseActivity<CurrencyDetailsActivit
     }
 
     @Override
+    protected void onDestroy() {
+        if(!isChangingConfigurations()) {
+            mViewModel.dispose();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     protected void injectDependencies(final CurrencyDetailsActivitySubComponent activityComponent) {
         activityComponent.inject(this);
     }

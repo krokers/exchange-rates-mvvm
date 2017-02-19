@@ -86,6 +86,13 @@ public class CurrencyDetailsViewModelTest {
         assertThat(viewModel.isProgressVisible(), is(false));
     }
 
+    @Test
+    public void thatUseCaseDisposedOnDispose(){
+        viewModel.dispose();
+
+        verify(mGetCurrencySeriesUseCaseMock).dispose();
+    }
+
     private Bundle initialBundle(final String currencyCode) {
         Bundle bundle = new Bundle();
         bundle.putString(CurrencyDetailsViewModel.KEY_CURRENCY_CODE, currencyCode);

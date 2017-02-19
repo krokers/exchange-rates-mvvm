@@ -142,11 +142,6 @@ public class CurrencyListViewModelTest {
 
     @Test
     public void thatObserversDisposedOnViewModelDispose() {
-        viewModel.onLoad(null);
-        verify(mGetCurrenciesRatesDateMock).run(mDateObserverCaptor.capture());
-        final DisposableObserver<Optional<Date>> observer = mDateObserverCaptor.getValue();
-        observer.onNext(Optional.of(new Date(MILLIS_22_01_2016__10_00)));
-
         viewModel.dispose();
 
         verify(mGetCurrenciesUseCaseMock).dispose();
@@ -167,4 +162,5 @@ public class CurrencyListViewModelTest {
 
         Assert.assertThat(viewModel.isProgressVisible(), is(true));
     }
+
 }
