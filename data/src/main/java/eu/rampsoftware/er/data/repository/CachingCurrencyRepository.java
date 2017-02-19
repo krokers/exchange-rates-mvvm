@@ -21,14 +21,11 @@ public class CachingCurrencyRepository implements CurrencyRepository {
 
     @Override
     public Observable<CurrencyData> getCurrencies(final Date date) {
-        final Observable<CurrencyData> currencies = mLocalSource.getCurrencies(date);
-        if (!currencies.isEmpty().blockingGet()) {
-            return currencies;
+        if(mLocalSource.containsCurrencyValues(date)){
+            return mLocalSource.getCurrencies(date);
         }
         final Observable<CurrencyData> remoteCurrencies = mRemoteSource.getCurrencies(date);
-        remoteCurrencies.doOnNext(currencyData -> {
-            mLocalSource.storeCurrencies(currencyData);
-        }).subscribe();
+        remoteCurrencies.doOnNext(currencyData -> mLocalSource.storeCurrencies(currencyData)).subscribe();
         return remoteCurrencies;
     }
 

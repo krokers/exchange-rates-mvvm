@@ -1,5 +1,7 @@
 package eu.rampsoftware.er.data.datasource.local;
 
+import io.reactivex.Emitter;
+import io.reactivex.Observable;
 import io.realm.Realm;
 
 public abstract class RealmManagerBase {
@@ -9,7 +11,23 @@ public abstract class RealmManagerBase {
 
     }
 
-    protected <T> T readFromRealm(Callable<T> callable) {
+    protected <T> Observable<T> readFromRealm(Callable<T> callable) {
+        return Observable.create(e -> {
+        Realm realm = null;
+        try {
+            realm = Realm.getDefaultInstance();
+            realm.beginTransaction();
+            callable.execute(realm, e);
+        } finally {
+            if (realm != null) {
+                realm.commitTransaction();
+                realm.close();
+            }
+        }
+        });
+    }
+
+    protected <T> T readFromRealmSync(SyncCallable<T> callable) {
         Realm realm = null;
         try {
             realm = Realm.getDefaultInstance();
@@ -38,6 +56,10 @@ public abstract class RealmManagerBase {
 
 
     protected interface Callable<T> {
+        void execute(Realm realm, Emitter<T> emitter);
+    }
+
+    protected interface SyncCallable<T> {
         T execute(Realm realm);
     }
 

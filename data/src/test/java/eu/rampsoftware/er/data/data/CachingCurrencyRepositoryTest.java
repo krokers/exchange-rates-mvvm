@@ -61,8 +61,8 @@ public class CachingCurrencyRepositoryTest {
 
     @Test
     public void thatRequstToRemoteDataSourceNotPerfomedIfCacheAvailable() {
-        when(mLocalDataSource.getCurrencies(any(Date.class)))
-                .thenReturn(Observable.just(currencyData(MILLIS_22_01_2016__10_00)));
+        when(mLocalDataSource.containsCurrencyValues(any(Date.class)))
+                .thenReturn(true);
 
         mCurrencyRepository.getCurrencies(new Date(MILLIS_22_01_2016__10_00));
 

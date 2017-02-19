@@ -45,13 +45,18 @@ public class RetrofitCurrencyDataSource implements CurrencyDataSource {
     }
 
     @Override
+    public boolean containsCurrencyValues(final Date date) {
+        return false;
+    }
+
+    @Override
     public Observable<SingleValue> getCurrencyValues(final Date startDate, final Date endDate, final String currencyCode) {
         return Observable.empty();
     }
 
     @Override
     public void storeCurrencies(final CurrencyData currencyData) {
-        throw new RuntimeException("Not yet implemented");
+        throw new UnsupportedOperationException();
     }
 
 

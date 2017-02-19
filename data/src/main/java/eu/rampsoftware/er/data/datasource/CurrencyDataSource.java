@@ -12,6 +12,8 @@ public interface CurrencyDataSource {
 
     boolean containsCurrencyValue(Date date, String currencyCode);
 
+    boolean containsCurrencyValues(Date date);
+
     Observable<SingleValue> getCurrencyValues(Date startDate, Date endDate, String currencyCode);
 
     void storeCurrencies(CurrencyData currencyData);

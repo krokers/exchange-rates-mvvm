@@ -1,8 +1,7 @@
 package eu.rampsoftware.er.data.datasource.local;
 
 
-import com.annimon.stream.Collectors;
-import com.annimon.stream.Stream;
+import android.text.TextUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -13,9 +12,10 @@ import eu.rampsoftware.er.data.SingleValue;
 import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.local.model.ValueEntity;
 import io.reactivex.Observable;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
-import static eu.rampsoftware.er.data.utils.DateUtils.*;
+import static eu.rampsoftware.er.data.utils.DateUtils.midnight;
 
 public class DatabaseCurrencyDataSource extends RealmManagerBase implements CurrencyDataSource {
 
@@ -28,46 +28,56 @@ public class DatabaseCurrencyDataSource extends RealmManagerBase implements Curr
     public Observable<CurrencyData> getCurrencies(final Date date) {
 
         final long midnight = midnight(date.getTime());
-        return readFromRealm(realm -> {
+
+        return readFromRealm((realm, emitter) -> {
             final RealmResults<ValueEntity> items = realm.where(ValueEntity.class)
                     .equalTo(ValueEntity.TIMESTAMP, midnight)
                     .findAll();
             if (items == null || items.size() == 0) {
-                return Observable.empty();
+                emitter.onComplete();
             }
             Map<String, Double> currencies = new HashMap<>();
             for (ValueEntity item : items) {
                 currencies.put(item.getCode(), item.getValue());
             }
-            return Observable.just(new CurrencyData(new Date(midnight), currencies, ""));
+            emitter.onNext(new CurrencyData(new Date(midnight), currencies, ""));
+            emitter.onComplete();
         });
     }
 
     @Override
     public boolean containsCurrencyValue(final Date date, final String currencyCode) {
         final long midnight = midnight(date.getTime());
-        return readFromRealm(realm -> {
-            final long etriesCount = realm.where(ValueEntity.class)
-                    .equalTo(ValueEntity.TIMESTAMP, midnight)
-                    .equalTo(ValueEntity.CODE, currencyCode)
-                    .count();
+        return readFromRealmSync((realm) -> {
+            final RealmQuery<ValueEntity> query = realm.where(ValueEntity.class)
+                    .equalTo(ValueEntity.TIMESTAMP, midnight);
+            if (!TextUtils.isEmpty(currencyCode)) {
+                query.equalTo(ValueEntity.CODE, currencyCode);
+            }
+            final long etriesCount = query.count();
             return etriesCount != 0;
         });
+    }
+
+    @Override
+    public boolean containsCurrencyValues(final Date date) {
+        return containsCurrencyValue(date, null);
     }
 
     @Override
     public Observable<SingleValue> getCurrencyValues(final Date startDate, final Date endDate, final String currencyCode) {
         final long startMidnight = midnight(startDate.getTime());
         final long endMidnight = midnight(endDate.getTime());
-        return readFromRealm(realm -> {
+        return readFromRealm((realm, emitter) -> {
             final RealmResults<ValueEntity> items = realm.where(ValueEntity.class)
                     .between(ValueEntity.TIMESTAMP, startMidnight, endMidnight)
                     .equalTo(ValueEntity.CODE, currencyCode)
                     .findAll();
-            return Observable.fromIterable(
-                    Stream.of(items).map(item -> new SingleValue(new Date(item.getTimestamp()), item.getValue()))
-                            .collect(Collectors.toList())
-            );
+
+            for (ValueEntity valueEntity : items) {
+                emitter.onNext(new SingleValue(new Date(valueEntity.getTimestamp()), valueEntity.getValue()));
+            }
+            emitter.onComplete();
         });
     }
 
@@ -87,7 +97,6 @@ public class DatabaseCurrencyDataSource extends RealmManagerBase implements Curr
             }
         });
     }
-
 
 
 }
