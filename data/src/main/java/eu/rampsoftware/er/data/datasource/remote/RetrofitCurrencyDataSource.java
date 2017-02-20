@@ -11,8 +11,6 @@ import eu.rampsoftware.er.data.datasource.CurrencyDataSource;
 import eu.rampsoftware.er.data.datasource.remote.dto.CurrencyList;
 import eu.rampsoftware.er.data.datasource.remote.mapper.CurrencyListMapper;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class RetrofitCurrencyDataSource implements CurrencyDataSource {
@@ -33,8 +31,6 @@ public class RetrofitCurrencyDataSource implements CurrencyDataSource {
 
         final Observable<Response<CurrencyList>> request = mCurrencyDataApi.getCurrencies(mDateFormatter.format(date), mAppId);
         return request
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(entryListDtoResponse -> Observable.just(entryListDtoResponse.body()))
                 .flatMap(currencyList -> Observable.just(CurrencyListMapper.toCurrencyData(currencyList)));
     }
