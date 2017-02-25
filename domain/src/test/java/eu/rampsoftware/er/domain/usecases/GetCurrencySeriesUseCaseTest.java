@@ -99,7 +99,7 @@ public class GetCurrencySeriesUseCaseTest {
         final Date to = new Date(MILLIS_24_01_2016__10_00);
         CurrencySeriesParam params = new CurrencySeriesParam(from, to, "PLN");
 
-        mUseCase.run(mTestObserver, params);
+        mUseCase.run(params);
 
         verify(mRepositoryMock).getSeries(from, to, "PLN");
     }

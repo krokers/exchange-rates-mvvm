@@ -1,10 +1,12 @@
 package eu.rampsoftware.er.viewmodel;
 
 
+import android.databinding.BaseObservable;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public abstract class BaseDisposableViewModel implements BaseViewModel {
+public abstract class BaseDisposableViewModel extends BaseObservable implements BaseViewModel {
 
     private final CompositeDisposable mDisposables;
 

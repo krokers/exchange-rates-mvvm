@@ -14,28 +14,36 @@ import org.mockito.Mock;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.Date;
+
 import eu.rampsoftware.er.BuildConfig;
 import eu.rampsoftware.er.data.SingleValue;
 import eu.rampsoftware.er.domain.usecases.GetCurrencySeriesUseCase;
 import eu.rampsoftware.er.viewmodel.details.CurrencyDetailsViewModel;
+import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
 
+import static eu.rampsoftware.er.domain.usecases.GetCurrencySeriesUseCase.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = 21, constants = BuildConfig.class)
 public class CurrencyDetailsViewModelTest {
 
+    public static final long MILLIS_22_01_2016__10_00 = 1453453200000L;
+
     @Rule
     public ExpectedException mExpectedException = ExpectedException.none();
     @Mock
     GetCurrencySeriesUseCase mGetCurrencySeriesUseCaseMock;
 
-    @Captor
-    ArgumentCaptor<DisposableObserver<SingleValue>> mObserverCaptor;
+//    @Captor
+//    ArgumentCaptor<DisposableObserver<SingleValue>> mObserverCaptor;
 
     @Captor
     ArgumentCaptor<GetCurrencySeriesUseCase.CurrencySeriesParam> mSeriesParamCaptor;
@@ -64,7 +72,7 @@ public class CurrencyDetailsViewModelTest {
     public void thatRequestPerformedOnLoad() {
         viewModel.onLoad(initialBundle("PLN"));
 
-        verify(mGetCurrencySeriesUseCaseMock).run(mObserverCaptor.capture(), mSeriesParamCaptor.capture());
+        verify(mGetCurrencySeriesUseCaseMock).run(mSeriesParamCaptor.capture());
     }
 
     @Test
@@ -76,10 +84,11 @@ public class CurrencyDetailsViewModelTest {
 
     @Test
     public void thatProgressDismissedOnDataLoaded() {
+
         viewModel.onLoad(initialBundle("PLN"));
         assertThat(viewModel.isProgressVisible(), is(true));
-        verify(mGetCurrencySeriesUseCaseMock).run(mObserverCaptor.capture(), mSeriesParamCaptor.capture());
-        final DisposableObserver<SingleValue> observer = mObserverCaptor.getValue();
+        verify(mGetCurrencySeriesUseCaseMock).run(mSeriesParamCaptor.capture());
+//        final DisposableObserver<SingleValue> observer = mObserverCaptor.getValue();
 
         observer.onComplete();
 

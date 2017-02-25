@@ -1,11 +1,8 @@
 package eu.rampsoftware.er.domain;
 
 
-import com.fernandocejas.arrow.checks.Preconditions;
-
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
-import io.reactivex.observers.DisposableObserver;
 
 /**
  * Abstraction for single unit of work from business logic standpoint. Purpose of this use case
@@ -14,7 +11,7 @@ import io.reactivex.observers.DisposableObserver;
  * @param <R> Data returned to the observer.
  * @param <T> Parameters needed to perform the unit of work.
  */
-public abstract class QueryUseCase<R, T> extends DisposableUseCase {
+public abstract class QueryUseCase<R, T> {
 
     private final Scheduler mWorkScheduler;
     private final Scheduler mObserveScheduler;
@@ -24,12 +21,11 @@ public abstract class QueryUseCase<R, T> extends DisposableUseCase {
         this.mObserveScheduler = observeScheduler;
     }
 
-    public void run(DisposableObserver<R> observer, T params) {
-        Preconditions.checkNotNull(observer);
+    public Observable<R> run(T params) {
         final Observable<R> observable = this.buildUseCaseObservable(params)
                 .subscribeOn(mWorkScheduler)
                 .observeOn(mObserveScheduler);
-        addDisposable(observable.subscribeWith(observer));
+        return observable;
     }
 
     protected abstract Observable<R> buildUseCaseObservable(final T params);

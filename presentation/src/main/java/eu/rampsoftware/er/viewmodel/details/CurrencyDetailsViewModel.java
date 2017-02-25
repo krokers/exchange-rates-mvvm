@@ -1,6 +1,5 @@
 package eu.rampsoftware.er.viewmodel.details;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Bundle;
 
@@ -12,15 +11,15 @@ import java.util.List;
 import eu.rampsoftware.er.BR;
 import eu.rampsoftware.er.data.SingleValue;
 import eu.rampsoftware.er.domain.usecases.GetCurrencySeriesUseCase;
+import eu.rampsoftware.er.viewmodel.BaseDisposableViewModel;
 import eu.rampsoftware.er.viewmodel.BaseViewModel;
-import io.reactivex.observers.DisposableObserver;
 
 import static com.fernandocejas.arrow.checks.Preconditions.checkArgument;
 import static com.fernandocejas.arrow.checks.Preconditions.checkNotNull;
 import static eu.rampsoftware.er.domain.usecases.GetCurrencySeriesUseCase.CurrencySeriesParam;
 
 
-public class CurrencyDetailsViewModel extends BaseObservable implements BaseViewModel {
+public class CurrencyDetailsViewModel extends BaseDisposableViewModel implements BaseViewModel {
 
     public static final String KEY_CURRENCY_CODE = "KEY_CURRENCY_CODE";
     private GetCurrencySeriesUseCase mGetSeriesUseCase;
@@ -56,11 +55,6 @@ public class CurrencyDetailsViewModel extends BaseObservable implements BaseView
         performRequest();
     }
 
-    @Override
-    public void dispose() {
-        mGetSeriesUseCase.dispose();
-    }
-
     @Bindable
     public boolean isProgressVisible() {
         return mIsProgressVisible;
@@ -85,25 +79,16 @@ public class CurrencyDetailsViewModel extends BaseObservable implements BaseView
         calendar.add(Calendar.DAY_OF_YEAR, -daysRange);
         Date from = calendar.getTime();
         CurrencySeriesParam params = new CurrencySeriesParam(from, endDate, mCurrencyCode);
-        mGetSeriesUseCase.run(new CurrencySeriesObserver(), params);
+        addDisposable(
+                mGetSeriesUseCase.run(params)
+                        .doFinally(() -> {
+                            setProgressVisible(false);
+                            notifyPropertyChanged(BR.currencySeries);
+                        })
+                        .subscribe(currencyData -> {
+                            mCurrencySeries.add(currencyData);
+                        })
+        );
     }
 
-
-    private final class CurrencySeriesObserver extends DisposableObserver<SingleValue> {
-        @Override
-        public void onNext(final SingleValue currencyData) {
-            mCurrencySeries.add(currencyData);
-        }
-
-        @Override
-        public void onError(final Throwable e) {
-            setProgressVisible(false);
-        }
-
-        @Override
-        public void onComplete() {
-            setProgressVisible(false);
-            notifyPropertyChanged(BR.currencySeries);
-        }
-    }
 }

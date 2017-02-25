@@ -1,12 +1,9 @@
 package eu.rampsoftware.er.viewmodel.currencies;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.os.Bundle;
-
-import com.fernandocejas.arrow.optional.Optional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,12 +16,12 @@ import eu.rampsoftware.er.data.CurrencyData;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesRatesDate;
 import eu.rampsoftware.er.domain.usecases.GetCurrenciesUseCase;
 import eu.rampsoftware.er.navigation.Navigator;
+import eu.rampsoftware.er.viewmodel.BaseDisposableViewModel;
 import eu.rampsoftware.er.viewmodel.BaseViewModel;
-import io.reactivex.observers.DisposableObserver;
 
 import static com.fernandocejas.arrow.checks.Preconditions.checkNotNull;
 
-public class CurrencyListViewModel extends BaseObservable implements BaseViewModel {
+public class CurrencyListViewModel extends BaseDisposableViewModel implements BaseViewModel {
 
     private final GetCurrenciesUseCase mCurrenciesUseCase;
     private final GetCurrenciesRatesDate mGetCurrenciesRatesDate;
@@ -66,17 +63,23 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
     @Override
     public void onLoad(final Bundle bundle) {
         setProgressVisible(true);
-        mGetCurrenciesRatesDate.run(new DateObserver());
-    }
-
-    @Override
-    public void dispose() {
-        mGetCurrenciesRatesDate.dispose();
-        mCurrenciesUseCase.dispose();
+        addDisposable(
+                mGetCurrenciesRatesDate.run()
+                        .doOnError(throwable -> setProgressVisible(false))
+                        .subscribe(dateOptional -> {
+                            mReadDate = dateOptional.or(mReadDate);
+                            onDate(mReadDate);
+                        })
+        );
     }
 
     private void onDate(final Date date) {
-        mCurrenciesUseCase.run(new CurrenciesDataObserver(), new GetCurrenciesUseCase.CurrenciesParam(date));
+        addDisposable(
+                mCurrenciesUseCase.run(new GetCurrenciesUseCase.CurrenciesParam(date))
+                        .doFinally(() -> setProgressVisible(false))
+                        .subscribe(this::onCurrencyDataLoaded)
+        );
+
     }
 
     private void onCurrencyDataLoaded(final CurrencyData currencyData) {
@@ -115,40 +118,4 @@ public class CurrencyListViewModel extends BaseObservable implements BaseViewMod
         setProgressVisible(true);
         onDate(mReadDate);
     }
-
-    private final class DateObserver extends DisposableObserver<Optional<Date>> {
-
-        @Override
-        public void onNext(final Optional<Date> date) {
-            mReadDate = date.or(mReadDate);
-            onDate(mReadDate);
-        }
-
-        @Override
-        public void onError(final Throwable e) {
-            setProgressVisible(false);
-        }
-
-        @Override
-        public void onComplete() {
-        }
-    }
-
-    private final class CurrenciesDataObserver extends DisposableObserver<CurrencyData> {
-        @Override
-        public void onNext(final CurrencyData currencyData) {
-            onCurrencyDataLoaded(currencyData);
-            setProgressVisible(false);
-        }
-
-        @Override
-        public void onError(final Throwable e) {
-            setProgressVisible(false);
-        }
-
-        @Override
-        public void onComplete() {
-        }
-    }
-
 }
